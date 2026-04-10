@@ -1,0 +1,32 @@
+"use client";
+
+import { motion, useScroll, useSpring } from "framer-motion";
+
+export default function ScrollPath() {
+  const { scrollYProgress } = useScroll();
+  
+  // Smooth out the progress bar for a high-end feel
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  return (
+    <div className="fixed left-4 md:left-12 top-0 bottom-0 w-[1px] bg-black/5 z-[40] pointer-events-none">
+      {/* Background Line */}
+      <div className="absolute inset-0 w-full h-full" />
+      
+      {/* Animated Progress Line */}
+      <motion.div
+        style={{ scaleY, originY: 0 }}
+        className="absolute top-0 left-0 w-full h-full bg-amberMain shadow-[0_0_15px_rgba(245,158,11,0.5)]"
+      />
+
+      {/* Narrative Milestone Dots */}
+      <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full border border-black/10 bg-white" />
+      <div className="absolute top-[50%] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full border border-black/10 bg-white" />
+      <div className="absolute top-[80%] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full border border-black/10 bg-white" />
+    </div>
+  );
+}
