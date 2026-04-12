@@ -405,7 +405,6 @@ export default function BuyPage() {
                      <div className="space-y-4">
                         <p className="text-sm font-bold text-[#1d1d1f] uppercase tracking-widest">Done paying? Upload proof:</p>
                         <CldUploadWidget 
-                          cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "du1btd5bw"}
                           uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "Unsigned_UPLOAD"}
                           options={{
                             sources: ['local', 'camera'],
@@ -414,7 +413,6 @@ export default function BuyPage() {
                             maxFileSize: 5000000, // 5MB limit
                             multiple: false,
                             maxImageFileSize: 5000000,
-                            validateBeforeUpload: true
                           }}
                           onSuccess={onUploadSuccess}
                         >

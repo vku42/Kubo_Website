@@ -1,3 +1,4 @@
+import React from "react";
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { ConvexHttpClient } from "convex/browser";
@@ -108,12 +109,12 @@ export async function POST(req: NextRequest) {
             from: "Kubo Bot <onboarding@resend.dev>",
             to: email,
             subject: `Order Reserved: ${orderId}`,
-            react: OrderReceiptEmail({ 
-              customerName: name, 
-              orderId, 
-              amount: "2999", // Using production price for email
-              upiId: "thekubo@pthdfc" 
-            }),
+            react: <OrderReceiptEmail 
+              customerName={name} 
+              orderId={orderId} 
+              amount="2999" 
+              upiId="thekubo@pthdfc" 
+            />,
           });
           console.log("Confirmation Email Sent to:", email);
         } catch (mailErr) {
