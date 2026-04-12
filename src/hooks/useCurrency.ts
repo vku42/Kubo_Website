@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 export default function useCurrency() {
-  const [price, setPrice] = useState("₹2,999");
+  const [price, setPrice] = useState("₹10");
   const [shipping, setShipping] = useState("Free Delivery in India");
 
   useEffect(() => {
@@ -10,7 +10,7 @@ export default function useCurrency() {
       .then((res) => res.json())
       .then((data) => {
         if (data.country_code === "IN") {
-          setPrice("₹2,999");
+          setPrice("₹10");
           setShipping("Free Delivery in India");
         } else if (data.continent_code === "EU") {
           setPrice("€29.99");

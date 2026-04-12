@@ -14,7 +14,7 @@ export default function Intelligence() {
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.5, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={containerRef} className="w-full bg-[#050505] text-white py-24 md:py-48 px-6 relative overflow-hidden flex flex-col items-center">
+    <section ref={containerRef} className="w-full bg-[#050505] text-white py-20 md:py-48 px-6 relative overflow-hidden flex flex-col items-center">
       {/* Dynamic Glowing Core */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square pointer-events-none">
         <motion.div 
@@ -27,11 +27,11 @@ export default function Intelligence() {
 
       <div className="w-full max-w-5xl relative z-10 flex flex-col items-center text-center">
         <motion.div style={{ y, opacity }} className="max-w-3xl">
-          <div className="text-xs md:text-sm font-bold tracking-widest uppercase text-amberMain mb-6">Neural Core Architecture</div>
-          <h2 className="text-4xl md:text-[5.5rem] font-bold tracking-tighter leading-[1.05] text-white mb-8">
+          <div className="text-xs md:text-sm font-bold tracking-widest uppercase text-amberMain mb-4 md:mb-6">Neural Core Architecture</div>
+          <h2 className="text-[10vw] sm:text-4xl md:text-[5.5rem] font-bold tracking-tighter leading-[1] text-white mb-6 md:mb-8">
             A brain that understands your silence.
           </h2>
-          <p className="text-lg md:text-2xl text-white/50 font-medium tracking-tight text-balance">
+          <p className="text-lg md:text-2xl text-white/50 font-medium tracking-tight text-balance max-w-[95%] mx-auto">
             Powered by a localized, privacy-first emotional engine. It processes your physical cues without ever sending audio or video to the cloud. Complete intelligence, perfectly isolated.
           </p>
         </motion.div>

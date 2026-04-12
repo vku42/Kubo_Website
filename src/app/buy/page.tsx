@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Check, Shield, Truck, RotateCcw, ChevronDown, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Check, Shield, Truck, RotateCcw, ChevronDown, ArrowRight, ArrowLeft, Loader2, QrCode, Smartphone, Copy, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import useCurrency from "@/hooks/useCurrency";
-import { useQuery } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
+import { CldUploadWidget } from "next-cloudinary";
 import { api } from "../../../convex/_generated/api";
 
 const faqs = [
@@ -14,21 +17,64 @@ const faqs = [
   { q: "Do you ship internationally?", a: "Currently, we only ship within India. We are working hard to establish international logistics and will announce global availability soon." }
 ];
 
+const MERCHANT_UPI = "thekubo@pthdfc";
+const MERCHANT_NAME = "Kubo Bot";
+const PRODUCT_AMOUNT = "10";
+
 export default function BuyPage() {
-  const [step, setStep] = useState(0); // 0: Product, 1: Form, 2: Redirecting
+  const router = useRouter();
+  const [step, setStep] = useState(0); // 0: Product, 1: Form, 2: Payment Display
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [currentOrderId, setCurrentOrderId] = useState<string | null>(null);
+  const [proofUploaded, setProofUploaded] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"manual_upi" | "instamojo">("manual_upi");
+  
+  const attachProof = useMutation(api.orders.attachPaymentProof);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    address: ""
+    address: "",
+    customerUpiId: "",
+    website_url: ""
   });
+
+  // 🛡️ Reliability: Persistent Session Tracking
+  useEffect(() => {
+    const savedOrderId = localStorage.getItem("pending_order_id");
+    const savedStep = localStorage.getItem("checkout_step");
+    const savedData = localStorage.getItem("checkout_form");
+
+    if (savedOrderId) setCurrentOrderId(savedOrderId);
+    if (savedStep) setStep(Number(savedStep));
+    if (savedData) setFormData(JSON.parse(savedData));
+  }, []);
+
+  // Save progress on change
+  useEffect(() => {
+    if (currentOrderId) localStorage.setItem("pending_order_id", currentOrderId);
+    localStorage.setItem("checkout_step", step.toString());
+    localStorage.setItem("checkout_form", JSON.stringify(formData));
+  }, [currentOrderId, step, formData]);
   
   const stock = useQuery(api.inventory.getStock) ?? 47;
   const { price, shipping } = useCurrency();
 
+  // Generate UPI Deep Link
+  const upiLink = `upi://pay?pa=${MERCHANT_UPI}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${PRODUCT_AMOUNT}&cu=INR&tn=${encodeURIComponent("Kubo Bot Pre-Order")}`;
+  // Generate QR Code URL via public API
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiLink)}`;
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Honeypot check
+    if (formData.website_url) {
+      return;
+    }
+
     setLoading(true);
     
     try {
@@ -37,24 +83,31 @@ export default function BuyPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-           name: formData.name,
-           email: formData.email,
-           phone: formData.phone,
-           address: formData.address // Capturing address as well
+           ...formData,
+           paymentMethod
         })
       });
 
       const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else if (data.url === "") {
-        // Mock success for development
-        alert("Development Mode: Payment gateway keys not set. Data captured successfully!\n\nName: " + formData.name + "\nEmail: " + formData.email);
-        setLoading(false);
-        setStep(0);
+      
+      if (paymentMethod === "instamojo") {
+        if (data.url) {
+          window.location.href = data.url;
+        } else if (data.url === "") {
+          alert("Development Mode: Instamojo keys not set. Data captured!");
+          setLoading(false);
+          setStep(0);
+        } else {
+          alert("Checkout failed: " + (data.error || "Unknown error"));
+          setLoading(false);
+        }
       } else {
-        alert("Payment gateway redirect failed: " + (data.error || "Unknown error"));
+        // Manual UPI Flow: Move to the Payment Display step
+        if (data.orderId) {
+          setCurrentOrderId(data.orderId);
+        }
         setLoading(false);
+        setStep(2);
       }
     } catch (err) {
       console.error(err);
@@ -63,21 +116,59 @@ export default function BuyPage() {
     }
   };
 
+  const onUploadSuccess = async (result: any) => {
+    if (result.event === "success" && currentOrderId) {
+      const url = result.info.secure_url;
+      try {
+        await attachProof({
+          orderId: currentOrderId as any,
+          proofUrl: url
+        });
+        setProofUploaded(true);
+        // Automatic redirection after binding the proof
+        router.push(`/buy/success?id=${currentOrderId}`);
+      } catch (err) {
+        console.error("Proof link failed:", err);
+        alert("Failed to link screenshot. Please try again.");
+      }
+    }
+  };
+
+  const copyUpi = () => {
+    navigator.clipboard.writeText(MERCHANT_UPI);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div className="w-full max-w-6xl mx-auto px-6 py-12 md:py-24">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Left: Product Gallery (Stays visible or adapts) */}
+        {/* Left: Product Gallery */}
         <div className="flex flex-col gap-4">
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="w-full aspect-square relative rounded-[3rem] overflow-hidden glass-panel border border-white/40 shadow-[0_32px_80px_rgba(0,0,0,0.06)]"
           >
-            <Image src="/Photos/img1.jpg" alt="Kubo Bot Main" fill className="object-cover" priority />
+            <Image 
+              src="/Photos/img1.jpg" 
+              alt="Kubo Bot Main" 
+              fill 
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover" 
+              priority 
+              loading="eager"
+            />
           </motion.div>
           <div className="grid grid-cols-2 gap-4">
             <div className="w-full aspect-square relative rounded-[2rem] overflow-hidden glass-panel border border-white/40">
-              <Image src="/Photos/img2.jpg" alt="Kubo Bot Detail" fill className="object-cover" />
+              <Image 
+                src="/Photos/img2.jpg" 
+                alt="Kubo Bot Detail" 
+                fill 
+                sizes="(max-width: 768px) 50vw, 25vw"
+                className="object-cover" 
+              />
             </div>
             <div className="w-full aspect-square relative rounded-[2rem] overflow-hidden glass-panel bg-amberMain/5 flex items-center justify-center border border-amberMain/20">
               <p className="font-bold text-amberMain tracking-widest text-xs uppercase text-center px-4">Limited Edition <br/>Batch 01</p>
@@ -101,9 +192,9 @@ export default function BuyPage() {
                     <span className="text-xs font-bold tracking-widest text-red-600 uppercase">Only {stock} units left</span>
                 </div>
 
-                <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-4 text-[#1d1d1f]">Kubo Bot</h1>
-                <p className="text-3xl font-bold text-[#1d1d1f] tracking-tight mb-8">
-                  {price} <span className="text-sm font-medium text-[#86868b] ml-2">incl. all taxes</span>
+                <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4 text-[#1d1d1f] text-center md:text-left">Kubo Bot</h1>
+                <p className="text-2xl md:text-3xl font-bold text-[#1d1d1f] tracking-tight mb-8 text-center md:text-left">
+                  {price} <span className="text-sm font-medium text-[#86868b] ml-1">incl. all taxes</span>
                 </p>
 
                 <p className="text-xl text-balance mb-8 font-medium text-[#86868b] leading-relaxed">
@@ -131,7 +222,7 @@ export default function BuyPage() {
                   <div className="flex flex-col items-center gap-2"><RotateCcw className="h-5 w-5 text-amberMain" /> 14D Returns</div>
                 </div>
               </motion.div>
-            ) : (
+            ) : step === 1 ? (
               <motion.div 
                 key="form"
                 initial={{ opacity: 0, x: 20 }}
@@ -146,8 +237,8 @@ export default function BuyPage() {
                   <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Product
                 </button>
 
-                <h2 className="text-4xl font-bold tracking-tight mb-2 text-[#1d1d1f]">Pre-Order Info</h2>
-                <p className="text-[#86868b] font-medium mb-10">Where should we ship your Kubo?</p>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-2 text-[#1d1d1f] text-center md:text-left">Pre-Order Info</h2>
+                <p className="text-[#86868b] font-medium mb-10 text-center md:text-left">Where should we ship your Kubo?</p>
 
                 <form onSubmit={handleFormSubmit} className="space-y-5">
                   <div className="space-y-2">
@@ -197,19 +288,59 @@ export default function BuyPage() {
                     />
                   </div>
 
+                  {/* Payment Method Selection Removed - Hardcoded to Manual UPI */}
+                  <div className="pt-4 space-y-4">
+                    <label className="text-sm font-bold text-[#1d1d1f] ml-1 uppercase tracking-widest">Payment Method</label>
+                    <div className="flex items-center justify-between p-5 rounded-2xl border-2 border-amberMain bg-amberMain/5 transition-all">
+                        <div className="flex items-center gap-3 font-bold text-[#1d1d1f]">
+                          <QrCode className="w-6 h-6" />
+                          <div className="text-left leading-none">
+                            <p>UPI Transfer</p>
+                            <p className="text-[10px] text-[#86868b] mt-1">GPay, PhonePe, Paytm, etc.</p>
+                          </div>
+                        </div>
+                        <CheckCircle2 className="w-6 h-6 text-amberMain" />
+                    </div>
+                  </div>
+
+                  <motion.div 
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      className="space-y-2 pt-2"
+                  >
+                      <label className="text-sm font-bold text-amber-600 ml-1">YOUR UPI ID (FOR TRACKING)</label>
+                      <input 
+                        required
+                        type="text"
+                        placeholder="yourname@upi"
+                        value={formData.customerUpiId}
+                        onChange={(e) => setFormData({...formData, customerUpiId: e.target.value})}
+                        className="w-full px-6 py-4 rounded-2xl bg-amber-50 border border-amber-200 focus:border-amberMain focus:bg-white transition-all outline-none font-medium"
+                      />
+                  </motion.div>
+
+                  {/* Honeypot field for bot protection */}
+                  <div className="hidden" aria-hidden="true" style={{ display: 'none' }}>
+                    <input 
+                      type="text" 
+                      name="website_url" 
+                      tabIndex={-1} 
+                      autoComplete="off"
+                      value={formData.website_url}
+                      onChange={(e) => setFormData({...formData, website_url: e.target.value})}
+                    />
+                  </div>
+
                   <button
                     type="submit"
                     disabled={loading}
                     className="w-full bg-[#1d1d1f] text-white text-xl font-bold py-6 rounded-full hover:shadow-[0_20px_40px_rgba(245,158,11,0.2)] transition-all duration-300 flex items-center justify-center gap-3 mt-8 disabled:opacity-50"
                   >
                     {loading ? (
-                      <>
-                        <Loader2 className="w-6 h-6 animate-spin" />
-                        <span>Redirecting to Payment...</span>
-                      </>
+                      <Loader2 className="w-6 h-6 animate-spin" />
                     ) : (
                       <>
-                        <span>Continue to Payment</span>
+                        <span>Confirm & Go to Payment</span>
                         <ArrowRight className="w-5 h-5" />
                       </>
                     )}
@@ -218,6 +349,106 @@ export default function BuyPage() {
                      Secure checkout via Instamojo. All shipping data is encrypted and used only for fulfilling your order.
                   </p>
                 </form>
+              </motion.div>
+            ) : (
+              <motion.div 
+                key="payment"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="flex flex-col items-center pt-8 text-center"
+              >
+                <div className="w-16 h-16 bg-amberMain/10 rounded-full flex items-center justify-center mb-6">
+                  <QrCode className="w-8 h-8 text-amberMain" />
+                </div>
+                <h2 className="text-3xl font-bold tracking-tight mb-2 text-[#1d1d1f]">Complete Payment</h2>
+                <p className="text-[#86868b] font-medium mb-8">Scan to pay exactly <span className="text-[#1d1d1f] font-bold">{price}</span></p>
+
+                <div className="relative glass-panel p-6 rounded-[2.5rem] border-2 border-amberMain/20 mb-8 bg-white shadow-xl">
+                    <img src={qrCodeUrl} alt="UPI QR Code" className="w-[200px] h-[200px] rounded-2xl" />
+                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-amberMain text-white text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg">
+                        Scan with any app
+                    </div>
+                </div>
+
+                <div className="flex flex-col gap-4 w-full px-4 mb-8">
+                    <a 
+                      href={upiLink}
+                      className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-[#000] text-white font-bold hover:scale-[1.02] transition-transform active:scale-95"
+                    >
+                        <Smartphone className="w-5 h-5" /> Pay via App
+                    </a>
+                    <button 
+                      onClick={copyUpi}
+                      className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl border border-black/10 font-bold hover:bg-black/5 transition-colors relative"
+                    >
+                        {copied ? <CheckCircle2 className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5" />}
+                        <span>{copied ? "Copied UPI ID" : MERCHANT_UPI}</span>
+                    </button>
+                </div>
+
+                {/* Proof of Payment Upload */}
+                <div className="w-full px-4 pt-8 border-t border-black/5">
+                   {proofUploaded ? (
+                     <motion.div 
+                       initial={{ scale: 0.9, opacity: 0 }}
+                       animate={{ scale: 1, opacity: 1 }}
+                       className="flex flex-col items-center gap-3 p-8 rounded-[2rem] bg-green-50 border border-green-200"
+                     >
+                        <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white">
+                           <Check className="w-6 h-6" />
+                        </div>
+                        <p className="font-bold text-green-800">Screenshot Uploaded!</p>
+                        <p className="text-xs text-green-700 font-medium">Your order is now in verification.</p>
+                     </motion.div>
+                   ) : (
+                     <div className="space-y-4">
+                        <p className="text-sm font-bold text-[#1d1d1f] uppercase tracking-widest">Done paying? Upload proof:</p>
+                        <CldUploadWidget 
+                          cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "du1btd5bw"}
+                          uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "Unsigned_UPLOAD"}
+                          options={{
+                            sources: ['local', 'camera'],
+                            resourceType: 'image',
+                            clientAllowedFormats: ['png', 'jpeg', 'jpg', 'webp'],
+                            maxFileSize: 5000000, // 5MB limit
+                            multiple: false,
+                            maxImageFileSize: 5000000,
+                            validateBeforeUpload: true
+                          }}
+                          onSuccess={onUploadSuccess}
+                        >
+                          {({ open }) => (
+                            <button
+                              onClick={() => open()}
+                              className="w-full py-5 rounded-2xl border-2 border-dashed border-amberMain/40 bg-amberMain/5 flex flex-col items-center gap-2 hover:bg-amberMain/10 transition-colors group"
+                            >
+                               <QrCode className="w-8 h-8 text-amberMain group-hover:scale-110 transition-transform" />
+                               <span className="font-bold text-amberMain text-sm">Select Payment Screenshot</span>
+                            </button>
+                          )}
+                        </CldUploadWidget>
+                     </div>
+                   )}
+                </div>
+
+                <div className="mt-8 p-6 rounded-3xl bg-amber-50 border border-amber-200 text-left">
+                    <h4 className="font-bold text-amber-900 text-sm mb-2 uppercase tracking-tight">Instructions:</h4>
+                    <ul className="text-xs text-amber-800 space-y-2 font-medium leading-relaxed">
+                        <li>1. Use GPay, PhonePe, or any UPI app.</li>
+                        <li>2. Ensure the payer matches: <span className="font-bold">{MERCHANT_NAME}</span></li>
+                        <li>3. After payment, take a screenshot and upload it above for faster verification.</li>
+                    </ul>
+                </div>
+
+                {!proofUploaded && (
+                  <Link 
+                    href={`/buy/success?id=manual_${Date.now()}`}
+                    className="w-full mt-6 py-4 rounded-2xl border border-black/10 text-[#1d1d1f] font-bold text-sm hover:bg-black/5 transition-colors flex items-center justify-center gap-2 group"
+                  >
+                    I've already paid, take me to Success <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                )}
               </motion.div>
             )}
           </AnimatePresence>

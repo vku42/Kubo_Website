@@ -51,7 +51,13 @@ export default function HowItWorks() {
             </h2>
             <div className="w-full max-w-4xl max-h-[55vh] aspect-video relative rounded-[2.5rem] overflow-hidden glass-panel flex items-center justify-center bg-[#f5f5f7]">
                  <p className="text-amberMain font-bold text-2xl tracking-widest uppercase absolute z-10">Step 3</p>
-               <Image src="/Photos/img2.jpg" alt="Kubo" fill className="object-cover opacity-90 scale-[1.02]" />
+               <Image 
+                 src="/Photos/img2.jpg" 
+                 alt="Kubo" 
+                 fill 
+                 sizes="(max-width: 768px) 100vw, 80vw"
+                 className="object-cover opacity-90 scale-[1.02]" 
+               />
             </div>
           </div>
 

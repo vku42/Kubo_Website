@@ -120,7 +120,7 @@ export default function Features() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto md:auto-rows-[300px]">
           {features.map((feature, i) => (
             <BentoCard key={i} feature={feature} delay={i * 0.08} />
           ))}

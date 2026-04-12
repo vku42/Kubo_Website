@@ -12,13 +12,16 @@ export default defineSchema({
     inStock: v.boolean(),
   }),
   orders: defineTable({
-    productId: v.id("products"),
+    productId: v.optional(v.id("products")),
     customerName: v.string(),
     customerEmail: v.string(),
     customerPhone: v.string(),
+    customerUpiId: v.optional(v.string()), // For manual verification
     shippingAddress: v.string(),
-    status: v.string(), // "pending", "paid", "shipped"
-    paymentId: v.optional(v.string()),
+    status: v.string(), // "pending", "paid", "shipped", "verification_pending", "proof_uploaded"
+    paymentMethod: v.optional(v.string()), // "instamojo" | "manual_upi"
+    paymentId: v.optional(v.string()), // Instamojo ID or Transaction ID
+    paymentProofUrl: v.optional(v.string()), // Cloudinary URL
     amount: v.number(),
     createdAt: v.number(),
   }),

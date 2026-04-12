@@ -24,7 +24,7 @@ export default function Hero() {
   const imageY = useTransform(scrollYProgress, [0, 0.4], [100, 0]);
 
   return (
-    <section ref={ref} className="relative w-full min-h-[100vh] flex flex-col items-center justify-center overflow-hidden pt-32 md:pt-20">
+    <section ref={ref} className="relative w-full min-h-[100vh] flex flex-col items-center justify-center overflow-hidden pt-24 md:pt-20">
       {/* Background Gradient Orbs - dynamic pulse */}
       <motion.div 
         animate={{ scale: [1, 1.1, 1], rotate: [0, 90, 0] }}
@@ -45,10 +45,10 @@ export default function Hero() {
             <span className="text-sm font-semibold tracking-tight text-[#1d1d1f]">Pre-orders now open for Batch 01</span>
           </div>
           
-          <h1 className="text-[5rem] md:text-[9rem] font-bold tracking-tighter leading-[0.85] text-[#1d1d1f] pb-4 blur-[0px] hover:blur-[2px] transition-all duration-700 cursor-default">
+          <h1 className="text-[14vw] sm:text-[5rem] md:text-[9rem] font-bold tracking-tighter leading-[0.9] text-[#1d1d1f] pb-4 blur-[0px] hover:blur-[2px] transition-all duration-700 cursor-default">
             Meet Kubo.
           </h1>
-          <p className="mt-8 text-2xl md:text-[2rem] leading-[1.2] text-[#86868b] max-w-2xl text-balance font-medium tracking-tight">
+          <p className="mt-6 text-xl md:text-[2rem] leading-[1.2] text-[#86868b] max-w-[90%] md:max-w-2xl text-balance font-medium tracking-tight">
             Your desk buddy. Keeps you productive. <br className="hidden md:block"/> Never judges. Always there.
           </p>
           
@@ -93,6 +93,7 @@ export default function Hero() {
                 src="/Photos/hero_img_transparent.png"
                 alt="Kubo Bot - Premium Desktop Companion"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                 className="object-contain" // Use object-contain to ensure the full bot is visible without box borders
                 priority
                 quality={100}
