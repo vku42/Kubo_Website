@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 
 const testimonials = [
-  { name: "Alex P.", role: "Developer", text: "Having Kubo on my desk totally changed my late-night coding sessions. It actually feels less lonely." },
-  { name: "Sarah K.", role: "Designer", text: "The focus feature is incredible. When Kubo looks busy, I know it's time to put my head down." },
-  { name: "James T.", role: "Writer", text: "A physical presence without a screen. It's calming and grounding." },
-  { name: "Mia L.", role: "Student", text: "I love the zero-judgment aspect. Just having a companion during exams helped tremendously." }
+  { name: "Arjun M.", role: "Developer", text: "Having Kubo on my desk totally changed my late-night coding sessions. It actually feels less lonely." },
+  { name: "Ananya S.", role: "Designer", text: "The focus feature is incredible. When Kubo looks busy, I know it's time to put my head down." },
+  { name: "Rohan V.", role: "Writer", text: "A physical presence without a screen. It's calming and grounding." },
+  { name: "Ishita K.", role: "Student", text: "I love the zero-judgment aspect. Just having a companion during exams helped tremendously." }
 ];
 
 export default function Testimonials() {

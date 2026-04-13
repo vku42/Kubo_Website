@@ -7,6 +7,7 @@ import Footer from "@/components/ui/Footer";
 import SmoothScrolling from "@/components/ui/SmoothScrolling";
 import PreLoader from "@/components/ui/PreLoader";
 import CustomCursor from "@/components/ui/CustomCursor";
+import ChatBot from "@/components/ui/ChatBot";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const syne = Syne({ subsets: ["latin"], variable: "--font-syne" });
@@ -80,9 +81,10 @@ export default function RootLayout({
         <SmoothScrolling>
           <ConvexClientProvider>
             <Navbar />
-            <main className="flex-1 w-full flex flex-col pt-24 items-center">
+            <main className="flex-1 w-full flex flex-col pt-24 items-center relative">
               {children}
             </main>
+            <ChatBot />
             <Footer />
           </ConvexClientProvider>
         </SmoothScrolling>

@@ -90,7 +90,7 @@ export default function Hero() {
               className="w-full h-full relative"
             >
               <Image
-                src="/Photos/hero_img_transparent.png"
+                src="/Photos/heroimg.png"
                 alt="Kubo Bot - Premium Desktop Companion"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"

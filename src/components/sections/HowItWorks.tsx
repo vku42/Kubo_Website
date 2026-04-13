@@ -29,8 +29,15 @@ export default function HowItWorks() {
             <h2 className="text-4xl md:text-[4rem] font-bold tracking-tighter text-[#1d1d1f] mb-8 text-center leading-[1.1]">
               Plug it in. <br/><span className="text-[#86868b]">Say Hello.</span>
             </h2>
-            <div className="w-full max-w-4xl max-h-[55vh] aspect-video relative rounded-[2.5rem] overflow-hidden glass-panel flex items-center justify-center">
-                 <p className="text-amberMain font-bold text-2xl tracking-widest uppercase">Step 1</p>
+            <div className="w-full max-w-4xl max-h-[70vh] aspect-[4/5] md:aspect-video relative rounded-[2.5rem] overflow-hidden glass-panel flex items-center justify-center bg-[#f5f5f7]">
+                 <p className="text-amberMain font-bold text-2xl tracking-widest uppercase absolute z-10"></p>
+               <Image 
+                 src="/Photos/test1.jpeg" 
+                 alt="Kubo Setup" 
+                 fill 
+                 sizes="(max-width: 768px) 100vw, 80vw"
+                 className="object-cover opacity-90" 
+               />
             </div>
           </div>
 
@@ -39,8 +46,15 @@ export default function HowItWorks() {
             <h2 className="text-4xl md:text-[4rem] font-bold tracking-tighter text-[#1d1d1f] mb-8 text-center leading-[1.1]">
               Focus mode. <br/><span className="text-[#86868b]">Zero Distractions.</span>
             </h2>
-            <div className="w-full max-w-4xl max-h-[55vh] aspect-video relative rounded-[2.5rem] overflow-hidden glass-panel flex items-center justify-center">
-                 <p className="text-black/30 font-bold text-2xl tracking-widest uppercase">Step 2</p>
+            <div className="w-full max-w-4xl max-h-[70vh] aspect-[4/5] md:aspect-video relative rounded-[2.5rem] overflow-hidden glass-panel flex items-center justify-center bg-[#f5f5f7]">
+                 <p className="text-amberMain font-bold text-2xl tracking-widest uppercase absolute z-10"></p>
+               <Image 
+                 src="/Photos/test2.jpeg" 
+                 alt="Kubo Focus Mode" 
+                 fill 
+                 sizes="(max-width: 768px) 100vw, 80vw"
+                 className="object-cover opacity-90" 
+               />
             </div>
           </div>
 
@@ -49,14 +63,14 @@ export default function HowItWorks() {
             <h2 className="text-4xl md:text-[4rem] font-bold tracking-tighter text-[#1d1d1f] mb-8 text-center leading-[1.1]">
               Grow together. <br/><span className="text-[#86868b]">Every single day.</span>
             </h2>
-            <div className="w-full max-w-4xl max-h-[55vh] aspect-video relative rounded-[2.5rem] overflow-hidden glass-panel flex items-center justify-center bg-[#f5f5f7]">
-                 <p className="text-amberMain font-bold text-2xl tracking-widest uppercase absolute z-10">Step 3</p>
+            <div className="w-full max-w-4xl max-h-[70vh] aspect-[4/5] md:aspect-video relative rounded-[2.5rem] overflow-hidden glass-panel flex items-center justify-center bg-[#f5f5f7]">
+                 <p className="text-amberMain font-bold text-2xl tracking-widest uppercase absolute z-10"></p>
                <Image 
-                 src="/Photos/img2.jpg" 
-                 alt="Kubo" 
+                 src="/Photos/test3.jpeg" 
+                 alt="Kubo Companion" 
                  fill 
                  sizes="(max-width: 768px) 100vw, 80vw"
-                 className="object-cover opacity-90 scale-[1.02]" 
+                 className="object-cover opacity-90" 
                />
             </div>
           </div>

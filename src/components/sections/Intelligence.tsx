@@ -39,9 +39,9 @@ export default function Intelligence() {
         {/* Orbiting Tech Specs */}
         <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 mt-24">
           {[
-            { label: "Processing", value: "Neural ESP-32" },
+            { label: "Processing", value: "Xiao ESP-32 C3" },
             { label: "Privacy", value: "100% Offline" },
-            { label: "Sensors", value: "Spatial Vision" },
+            { label: "Sensors", value: "Touch Sensor" },
             { label: "Battery", value: "32hr Standby" },
           ].map((spec, i) => (
             <motion.div

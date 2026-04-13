@@ -9,29 +9,29 @@ export default function Specs() {
       category: "Dimensions & Build",
       icon: <Maximize className="w-6 h-6 text-[#1d1d1f]" />,
       items: [
-        { label: "Height", value: "142 mm" },
-        { label: "Width", value: "98 mm" },
+        { label: "Height", value: "50 mm" },
+        { label: "Width", value: "50 mm" },
         { label: "Weight", value: "320 grams" },
-        { label: "Materials", value: "Recycled Aluminum & Matte Polycarbonate" },
+        { label: "Materials", value: "(Polylactic Acid ) PLA+" },
       ]
     },
     {
       category: "Intelligence Core",
       icon: <Cpu className="w-6 h-6 text-[#1d1d1f]" />,
       items: [
-        { label: "Processor", value: "Neural ESP-32 Dual Core" },
-        { label: "Models", value: "On-device LLM (Local Execution)" },
-        { label: "Memory", value: "2GB LPDDR4" },
-        { label: "Storage", value: "16GB eMMC" },
+        { label: "Processor", value: "Xiao ESP32 C3" },
+        { label: "Models", value: "Local Execution" },
+        { label: "Screen", value: "1.3 Inch Oled" },
+        { label: "Storage", value: "4 MB of onboard Flash memory" },
       ]
     },
     {
       category: "Connectivity",
       icon: <Wifi className="w-6 h-6 text-[#1d1d1f]" />,
       items: [
-        { label: "Wireless", value: "Wi-Fi 6 (802.11ax)" },
-        { label: "Bluetooth", value: "Bluetooth 5.3" },
-        { label: "Port", value: "USB-C (PD Fast Charging)" },
+        { label: "Wireless", value: "Wi-Fi" },
+        { label: "Bluetooth", value: "Bluetooth 5.0" },
+        { label: "Port", value: "USB-C" },
         { label: "App", value: "iOS 16+ & Android 13+" },
       ]
     },
@@ -39,8 +39,8 @@ export default function Specs() {
       category: "Power & Battery",
       icon: <Battery className="w-6 h-6 text-[#1d1d1f]" />,
       items: [
-        { label: "Capacity", value: "3200 mAh" },
-        { label: "Active Life", value: "Up to 14 hours" },
+        { label: "Capacity", value: "500 mah" },
+        { label: "Active Life", value: "Up to 5 hours" },
         { label: "Standby", value: "Up to 32 hours" },
         { label: "Charge Time", value: "0-100% in 45 mins" },
       ]
