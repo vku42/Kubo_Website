@@ -118,22 +118,35 @@ export default function BuyPage() {
   };
 
   const onUploadSuccess = async (result: any) => {
+    console.log("Upload Result:", result);
+    console.log("Current Order ID:", currentOrderId);
+    
     // Only proceed if we have a successful result and a valid order ID
-    if (result.event === "success" && result.info?.secure_url && currentOrderId) {
+    if (result.event === "success" && result.info?.secure_url) {
       if (isRedirecting) return;
       
+      const targetOrderId = currentOrderId || localStorage.getItem("pending_order_id");
+      
+      if (!targetOrderId) {
+        console.error("No Order ID found for proof attachment");
+        alert("We couldn't link this upload to your order. Please try again from the form.");
+        return;
+      }
+
       const url = result.info.secure_url;
       setIsRedirecting(true);
       
       try {
         await attachProof({
-          orderId: currentOrderId as any,
+          orderId: targetOrderId as any,
           proofUrl: url
         });
         setProofUploaded(true);
+        console.log("Proof attached successfully. Redirecting...");
+        
         // Explicit delay to allow the user to see the "Uploaded" state
         setTimeout(() => {
-          router.push(`/buy/success?id=${currentOrderId}`);
+          router.push(`/buy/success?id=${targetOrderId}`);
         }, 1500);
       } catch (err) {
         console.error("Proof link failed:", err);
