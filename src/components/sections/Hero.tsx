@@ -42,7 +42,7 @@ export default function Hero() {
   return (
     <section ref={ref} className="relative w-full min-h-[100vh] flex flex-col items-center justify-center overflow-hidden pt-36 md:pt-40">
       {/* Background Lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] bg-amberMain/5 rounded-full blur-[140px] opacity-40 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] bg-black/[0.02] rounded-full blur-[140px] opacity-40 pointer-events-none" />
 
       <div className="z-10 flex flex-col items-center text-center px-6 relative w-full max-w-7xl">
         <motion.div
@@ -53,7 +53,7 @@ export default function Hero() {
           className="flex flex-col items-center"
         >
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-black/5 bg-white/40 backdrop-blur-xl mb-12 shadow-[0_8px_32px_rgba(0,0,0,0.03)] border-white/40">
-            <span className="w-2 h-2 rounded-full bg-amberMain animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-black/20 animate-pulse" />
             <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#1d1d1f]">Limited Batch 01 Available</span>
           </div>
           
@@ -72,7 +72,7 @@ export default function Hero() {
             <Magnetic strength={1.2}>
               <Link 
                 href="/buy" 
-                className="group flex items-center justify-center gap-4 bg-[#1d1d1f] text-white px-10 md:px-12 py-5 md:py-6 rounded-full font-bold text-base md:text-lg shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:shadow-amberMain/20 transition-all duration-500 hover:-translate-y-1"
+                className="group flex items-center justify-center gap-4 bg-[#1d1d1f] text-white px-10 md:px-12 py-5 md:py-6 rounded-full font-bold text-base md:text-lg shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:shadow-black/10 transition-all duration-500 hover:-translate-y-1"
               >
                 <span>Pre-Order Batch 01</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" />

@@ -47,8 +47,8 @@ export default function Navbar() {
             <Link href="#features" className="hover:text-black transition-colors">
               Features
             </Link>
-            <Link href="/about" className="hover:text-black transition-colors">
-              Story
+            <Link href="/support" className="hover:text-black transition-colors">
+              Support
             </Link>
           </nav>
           <div className="flex items-center gap-4">

@@ -43,9 +43,9 @@ export default function BuyCTA() {
             className="relative z-10 flex flex-col items-center"
         >
           {/* Live FOMO Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-red-500/10 bg-red-500/5 mb-8">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-black/5 bg-black/[0.02] mb-8">
             <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
-            <span className="text-[10px] font-bold tracking-[0.2em] text-red-600 uppercase">Batch 01 — {stock} units left</span>
+            <span className="text-[10px] font-bold tracking-[0.2em] text-[#86868b] uppercase">Batch 01 — {stock} units left</span>
           </div>
 
           <h2 className="mb-6 text-balance">
@@ -61,7 +61,6 @@ export default function BuyCTA() {
               className="group flex items-center justify-center gap-3 relative rounded-[2rem] bg-[#1d1d1f] text-white px-10 md:px-14 py-5 md:py-6 text-xl font-bold overflow-hidden shadow-[0_8px_20px_rgba(29,29,31,0.2)] hover:shadow-[0_16px_40px_rgba(29,29,31,0.3)] transition-all duration-300"
             >
               <span className="relative z-10 whitespace-nowrap">Pre-Order Now - {price}</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-amberMain via-amber-400 to-amberMain opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
             </Link>
           </Magnetic>
         </motion.div>

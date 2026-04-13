@@ -20,7 +20,7 @@ export default function ScrollPath() {
       {/* Animated Progress Line */}
       <motion.div
         style={{ scaleY, originY: 0 }}
-        className="absolute top-0 left-0 w-full h-full bg-amberMain shadow-[0_0_15px_rgba(245,158,11,0.5)]"
+        className="absolute top-0 left-0 w-full h-full bg-[#1d1d1f]/20 shadow-[0_0_10px_rgba(0,0,0,0.05)]"
       />
 
       {/* Narrative Milestone Dots */}

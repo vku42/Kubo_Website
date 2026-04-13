@@ -22,7 +22,7 @@ export default function FocusShowcase() {
           viewport={{ once: true }}
           className="text-center mb-16 flex flex-col items-center"
         >
-          <span className="text-xs font-bold tracking-[0.3em] uppercase text-amberMain mb-8 block">Deep Productivity</span>
+          <span className="text-xs font-bold tracking-[0.3em] uppercase text-white/30 mb-8 block">Deep Productivity</span>
           <h2 className="mb-8">
             Focus Mode.<br/><span className="text-white/40">Celestial Efficiency.</span>
           </h2>

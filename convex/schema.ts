@@ -33,4 +33,12 @@ export default defineSchema({
     batchName: v.string(),
     unitsLeft: v.number(),
   }),
+  supportTickets: defineTable({
+    customerName: v.string(),
+    customerEmail: v.string(),
+    subject: v.string(),
+    message: v.string(),
+    status: v.string(), // "pending", "resolved"
+    createdAt: v.number(),
+  }),
 });

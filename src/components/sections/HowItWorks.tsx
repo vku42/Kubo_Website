@@ -38,7 +38,7 @@ export default function HowItWorks() {
       {/* Visual Depth: Moving Light Leak */}
       <motion.div 
         style={{ translateX: useTransform(scrollYProgress, [0, 1], [-200, 200]) }}
-        className="fixed top-0 left-0 w-full h-screen bg-gradient-to-r from-transparent via-amberMain/5 to-transparent pointer-events-none z-0"
+        className="fixed top-0 left-0 w-full h-screen bg-gradient-to-r from-transparent via-black/[0.02] pointer-events-none z-0"
       />
 
       <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
@@ -50,7 +50,7 @@ export default function HowItWorks() {
                 {/* Text Content */}
                 <div className="flex-1 flex flex-col text-center md:text-left">
                   <div className="flex items-center gap-4 mb-6 md:mb-8 justify-center md:justify-start">
-                     <span className="text-amberMain font-bold text-lg tracking-[0.2em]">{step.number}</span>
+                     <span className="text-[#86868b] font-bold text-lg tracking-[0.2em]">{step.number}</span>
                      <div className="w-12 h-px bg-black/10" />
                   </div>
                   <h2 className="mb-6 md:mb-8">

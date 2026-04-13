@@ -40,14 +40,14 @@ export default function Footer() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={status !== "idle"}
-              className="w-full bg-[#f5f5f7] border border-black/5 rounded-full px-6 py-4 outline-none focus:ring-2 ring-amberMain/50 transition-all text-[#1d1d1f]"
+              className="w-full bg-[#f5f5f7] border border-black/5 rounded-full px-6 py-4 outline-none focus:ring-2 ring-black/10 transition-all text-[#1d1d1f]"
               required
             />
             <button 
               type="submit" 
               aria-label="Subscribe to newsletter"
               disabled={status !== "idle"}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#1d1d1f] text-white rounded-full flex items-center justify-center hover:bg-amberMain transition-colors disabled:opacity-50"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#1d1d1f] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors disabled:opacity-50"
             >
               {status === "success" ? <CheckCircle2 className="w-5 h-5" /> : <ArrowRight className="w-5 h-5" />}
             </button>
@@ -60,6 +60,7 @@ export default function Footer() {
             <h4 className="font-bold text-[#1d1d1f]">Product</h4>
             <Link href="/" className="text-[#86868b] hover:text-[#1d1d1f] transition">Overview</Link>
             <Link href="#features" className="text-[#86868b] hover:text-[#1d1d1f] transition">Features</Link>
+            <Link href="/support" className="text-[#86868b] hover:text-[#1d1d1f] transition">Support & Feedback</Link>
             <Link href="/buy" className="text-[#86868b] hover:text-[#1d1d1f] transition">Pre-Order</Link>
           </div>
           <div className="flex flex-col gap-4">

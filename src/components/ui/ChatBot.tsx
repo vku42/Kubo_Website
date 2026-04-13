@@ -101,7 +101,7 @@ export default function ChatBot() {
             {/* Header */}
             <div className="p-6 bg-white/50 backdrop-blur-xl border-b border-black/5 flex justify-between items-center">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-amberMain flex items-center justify-center shadow-lg shadow-amberMain/20">
+                <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shadow-lg shadow-black/10">
                   <Bot className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -163,7 +163,7 @@ export default function ChatBot() {
                    key={i}
                    disabled={isTyping}
                    onClick={() => handleSend(s)}
-                   className="text-[10px] font-bold py-2 px-4 rounded-full border border-amberMain/30 text-amberMain bg-amberMain/5 hover:bg-amberMain/10 transition-all disabled:opacity-50"
+                   className="text-[10px] font-bold py-2 px-4 rounded-full border border-black/10 text-black/40 bg-black/5 hover:bg-black/10 transition-all disabled:opacity-50"
                  >
                    {s}
                  </button>
@@ -181,7 +181,7 @@ export default function ChatBot() {
                   disabled={isTyping}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && handleSend(inputValue)}
-                  className="w-full bg-[#f5f5f7] border border-transparent focus:border-amberMain/50 focus:bg-white px-6 py-4 rounded-full outline-none transition-all pr-12 text-sm font-medium disabled:opacity-70"
+                  className="w-full bg-[#f5f5f7] border border-transparent focus:border-black/20 focus:bg-white px-6 py-4 rounded-full outline-none transition-all pr-12 text-sm font-medium disabled:opacity-70"
                 />
                 <button 
                   disabled={isTyping || !inputValue.trim()}
@@ -213,7 +213,7 @@ export default function ChatBot() {
             <motion.div 
                animate={{ scale: [1, 1.2, 1], opacity: [0, 1, 0] }}
                transition={{ repeat: Infinity, duration: 2 }}
-               className="absolute -top-1 -right-1 w-3 h-3 bg-amberMain rounded-full"
+               className="absolute -top-1 -right-1 w-3 h-3 bg-black/40 rounded-full"
             />
           </div>
         )}

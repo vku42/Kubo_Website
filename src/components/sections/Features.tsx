@@ -9,25 +9,25 @@ const features = [
   {
     title: "100% Local Intelligence",
     description: "Kubo processes every expression and interaction locally on its ESP32-C3 core. Your privacy is hardware-locked.",
-    icon: <Brain className="w-6 h-6 text-amberMain" />,
+    icon: <Brain className="w-6 h-6 text-[#1d1d1f]" />,
     span: "col-span-1 md:col-span-2",
   },
   {
     title: "Pure OLED Glass",
     description: "A 1.3\" deep-black display brings subtle kinetic life to your desk.",
-    icon: <Sparkles className="w-6 h-6 text-amberMain" />,
+    icon: <Sparkles className="w-6 h-6 text-[#1d1d1f]" />,
     span: "col-span-1",
   },
   {
     title: "Focus State Sync",
     description: "Integrated deep-work timers that fight distraction by reacting to your presence.",
-    icon: <Zap className="w-6 h-6 text-amberMain" />,
+    icon: <Zap className="w-6 h-6 text-[#1d1d1f]" />,
     span: "col-span-1",
   },
   {
     title: "Zero-Judgment Core",
     description: "A companion designed to listen and support, built with pure organic PLA+ materials.",
-    icon: <Smile className="w-6 h-6 text-amberMain" />,
+    icon: <Smile className="w-6 h-6 text-[#1d1d1f]" />,
     span: "col-span-1 md:col-span-2",
   },
 ];
@@ -60,7 +60,7 @@ function BentoCard({ feature, delay }: { feature: any; delay: number }) {
           background: useMotionTemplate`
             radial-gradient(
               500px circle at ${mouseX}px ${mouseY}px,
-              rgba(245, 158, 11, 0.08),
+              rgba(0, 0, 0, 0.04),
               transparent 80%
             )
           `,
@@ -68,7 +68,7 @@ function BentoCard({ feature, delay }: { feature: any; delay: number }) {
       />
       
       <div className="relative z-20 h-full flex flex-col">
-        <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-amberMain/10 transition-all duration-500 mb-8">
+        <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-black/5 transition-all duration-500 mb-8">
           <motion.div whileHover={{ rotate: [0, -10, 10, -5, 5, 0] }} transition={{ duration: 0.5 }}>
             {feature.icon}
           </motion.div>
@@ -81,7 +81,7 @@ function BentoCard({ feature, delay }: { feature: any; delay: number }) {
       </div>
 
       {/* Polish: Bottom Corner Gradient */}
-      <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-br from-transparent to-amberMain/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-br from-transparent to-black/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
     </motion.div>
   );
 }
@@ -95,7 +95,7 @@ export default function Features() {
             initial={{ opacity: 0, x: -10 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-amberMain font-bold tracking-widest text-xs uppercase mb-6"
+            className="text-[#86868b] font-bold tracking-widest text-xs uppercase mb-6"
           >
             Intelligence & Design
           </motion.span>

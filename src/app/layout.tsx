@@ -74,7 +74,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="m-0 p-0 text-base md:cursor-none">
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${syne.variable} font-[family-name:var(--font-inter)] min-h-screen flex flex-col items-center selection:bg-amber-100/50 selection:text-amber-900 overflow-x-hidden md:cursor-none`}
+        className={`${inter.variable} ${syne.variable} font-[family-name:var(--font-inter)] min-h-screen flex flex-col items-center selection:bg-black/10 selection:text-[#1d1d1f] overflow-x-hidden md:cursor-none`}
       >
         <PreLoader />
         <CustomCursor />

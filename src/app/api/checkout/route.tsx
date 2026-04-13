@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
           customerEmail: email,
           customerPhone: phone,
           shippingAddress: address,
-          amount: 10.0,
+          amount: 2999,
           paymentMethod: paymentMethod,
           customerUpiId: customerUpiId
       });
@@ -117,8 +117,11 @@ export async function POST(req: NextRequest) {
             />,
           });
           console.log("Confirmation Email Sent to:", email);
-        } catch (mailErr) {
-          console.error("Email Delivery Failed (But order was saved):", mailErr);
+        } catch (mailErr: any) {
+          console.error("📧 Email Delivery Failed:", {
+            error: mailErr.message || mailErr,
+            recommendation: "If you are in Sandbox mode, ensure the 'To' address matches your Resend account email."
+          });
         }
       }
     } catch (dbErr) {
@@ -145,7 +148,7 @@ export async function POST(req: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        amount: "10",
+        amount: "2999",
         purpose: "Kubo Bot Pre-Order",
         buyer_name: name,
         email: email,

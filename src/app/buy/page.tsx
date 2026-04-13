@@ -179,8 +179,8 @@ export default function BuyPage() {
                 className="object-cover" 
               />
             </div>
-            <div className="w-full aspect-square relative rounded-[2rem] overflow-hidden glass-panel bg-amberMain/5 flex items-center justify-center border border-amberMain/20">
-              <p className="font-bold text-amberMain tracking-widest text-xs uppercase text-center px-4">Limited Edition <br/>Batch 01</p>
+            <div className="w-full aspect-square relative rounded-[2rem] overflow-hidden glass-panel bg-black/5 flex items-center justify-center border border-black/10">
+              <p className="font-bold text-black/40 tracking-widest text-[10px] uppercase text-center px-4 leading-relaxed">Limited Edition <br/>Batch 01</p>
             </div>
           </div>
         </div>
@@ -211,9 +211,9 @@ export default function BuyPage() {
                 </p>
 
                 <div className="space-y-4 mb-10">
-                  <div className="flex items-center gap-3"><Check className="text-amberMain h-5 w-5" /> <span className="font-medium text-[#515154]">Emotional AI & Productivity Core</span></div>
-                  <div className="flex items-center gap-3"><Check className="text-amberMain h-5 w-5" /> <span className="font-medium text-[#515154]">Pure-Black OLED Expression Glass</span></div>
-                  <div className="flex items-center gap-3"><Check className="text-amberMain h-5 w-5" /> <span className="font-medium text-[#515154]">14-Hour Internal Battery Life</span></div>
+                  <div className="flex items-center gap-3"><Check className="text-black/40 h-5 w-5" /> <span className="font-medium text-[#515154]">Emotional AI & Productivity Core</span></div>
+                  <div className="flex items-center gap-3"><Check className="text-black/40 h-5 w-5" /> <span className="font-medium text-[#515154]">Pure-Black OLED Expression Glass</span></div>
+                  <div className="flex items-center gap-3"><Check className="text-black/40 h-5 w-5" /> <span className="font-medium text-[#515154]">14-Hour Internal Battery Life</span></div>
                 </div>
 
                 <button
@@ -226,9 +226,9 @@ export default function BuyPage() {
                 </button>
 
                 <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-black/5 text-center text-xs text-[#86868b] font-semibold uppercase tracking-widest leading-tight">
-                  <div className="flex flex-col items-center gap-2"><Truck className="h-5 w-5 text-amberMain" /> {shipping}</div>
-                  <div className="flex flex-col items-center gap-2"><Check className="h-5 w-5 text-amberMain" /> Batch 01 Quality</div>
-                  <div className="flex flex-col items-center gap-2"><RotateCcw className="h-5 w-5 text-amberMain" /> Refunds on Request</div>
+                  <div className="flex flex-col items-center gap-2"><Truck className="h-5 w-5 text-black/20" /> {shipping}</div>
+                  <div className="flex flex-col items-center gap-2"><Check className="h-5 w-5 text-black/20" /> Batch 01 Quality</div>
+                  <div className="flex flex-col items-center gap-2"><RotateCcw className="h-5 w-5 text-black/20" /> Refunds on Request</div>
                 </div>
               </motion.div>
             ) : step === 1 ? (
@@ -258,7 +258,7 @@ export default function BuyPage() {
                       placeholder="e.g. John Doe"
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="w-full px-6 py-4 rounded-2xl bg-[#f5f5f7] border border-transparent focus:border-amberMain/50 focus:bg-white transition-all outline-none font-medium"
+                      className="w-full px-6 py-4 rounded-2xl bg-[#f5f5f7] border border-transparent focus:border-black/20 focus:bg-white transition-all outline-none font-medium text-sm"
                     />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -270,7 +270,7 @@ export default function BuyPage() {
                         placeholder="john@example.com"
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        className="w-full px-6 py-4 rounded-2xl bg-[#f5f5f7] border border-transparent focus:border-amberMain/50 focus:bg-white transition-all outline-none font-medium"
+                        className="w-full px-6 py-4 rounded-2xl bg-[#f5f5f7] border border-transparent focus:border-black/20 focus:bg-white transition-all outline-none font-medium text-sm"
                       />
                     </div>
                     <div className="space-y-2">
@@ -281,7 +281,7 @@ export default function BuyPage() {
                         placeholder="+91"
                         value={formData.phone}
                         onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                        className="w-full px-6 py-4 rounded-2xl bg-[#f5f5f7] border border-transparent focus:border-amberMain/50 focus:bg-white transition-all outline-none font-medium"
+                        className="w-full px-6 py-4 rounded-2xl bg-[#f5f5f7] border border-transparent focus:border-black/20 focus:bg-white transition-all outline-none font-medium text-sm"
                       />
                     </div>
                   </div>
@@ -293,14 +293,13 @@ export default function BuyPage() {
                       value={formData.address}
                       onChange={(e) => setFormData({...formData, address: e.target.value})}
                       rows={3}
-                      className="w-full px-6 py-4 rounded-2xl bg-[#f5f5f7] border border-transparent focus:border-amberMain/50 focus:bg-white transition-all outline-none font-medium resize-none"
+                      className="w-full px-6 py-4 rounded-2xl bg-[#f5f5f7] border border-transparent focus:border-black/20 focus:bg-white transition-all outline-none font-medium resize-none text-sm"
                     />
                   </div>
 
-                  {/* Payment Method Selection Removed - Hardcoded to Manual UPI */}
                   <div className="pt-4 space-y-4">
-                    <label className="text-sm font-bold text-[#1d1d1f] ml-1 uppercase tracking-widest">Payment Method</label>
-                    <div className="flex items-center justify-between p-5 rounded-2xl border-2 border-amberMain bg-amberMain/5 transition-all">
+                    <label className="text-xs font-bold text-[#1d1d1f] ml-1 uppercase tracking-widest">Payment Method</label>
+                    <div className="flex items-center justify-between p-5 rounded-2xl border-2 border-black bg-black/5 transition-all">
                         <div className="flex items-center gap-3 font-bold text-[#1d1d1f]">
                           <QrCode className="w-6 h-6" />
                           <div className="text-left leading-none">
@@ -308,7 +307,7 @@ export default function BuyPage() {
                             <p className="text-[10px] text-[#86868b] mt-1">GPay, PhonePe, Paytm, etc.</p>
                           </div>
                         </div>
-                        <CheckCircle2 className="w-6 h-6 text-amberMain" />
+                        <CheckCircle2 className="w-6 h-6 text-black" />
                     </div>
                   </div>
 
@@ -317,14 +316,14 @@ export default function BuyPage() {
                       animate={{ opacity: 1, height: "auto" }}
                       className="space-y-2 pt-2"
                   >
-                      <label className="text-sm font-bold text-amber-600 ml-1">YOUR UPI ID (FOR TRACKING)</label>
+                      <label className="text-sm font-bold text-black/60 ml-1">YOUR UPI ID (FOR TRACKING)</label>
                       <input 
                         required
                         type="text"
                         placeholder="yourname@upi"
                         value={formData.customerUpiId}
                         onChange={(e) => setFormData({...formData, customerUpiId: e.target.value})}
-                        className="w-full px-6 py-4 rounded-2xl bg-amber-50 border border-amber-200 focus:border-amberMain focus:bg-white transition-all outline-none font-medium"
+                        className="w-full px-6 py-4 rounded-2xl bg-[#f5f5f7] border border-transparent focus:border-black/40 focus:bg-white transition-all outline-none font-medium text-sm"
                       />
                   </motion.div>
 
@@ -343,7 +342,7 @@ export default function BuyPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-[#1d1d1f] text-white text-xl font-bold py-6 rounded-full hover:shadow-[0_20px_40px_rgba(245,158,11,0.2)] transition-all duration-300 flex items-center justify-center gap-3 mt-8 disabled:opacity-50"
+                    className="w-full bg-[#1d1d1f] text-white text-xl font-bold py-6 rounded-full hover:shadow-[0_20px_40px_rgba(0,0,0,0.15)] transition-all duration-300 flex items-center justify-center gap-3 mt-8 disabled:opacity-50"
                   >
                     {loading ? (
                       <Loader2 className="w-6 h-6 animate-spin" />
@@ -367,15 +366,15 @@ export default function BuyPage() {
                 exit={{ opacity: 0, x: -20 }}
                 className="flex flex-col items-center pt-8 text-center"
               >
-                <div className="w-16 h-16 bg-amberMain/10 rounded-full flex items-center justify-center mb-6">
-                  <QrCode className="w-8 h-8 text-amberMain" />
+                <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-6">
+                  <QrCode className="w-8 h-8 text-black/40" />
                 </div>
                 <h2 className="text-3xl font-bold tracking-tight mb-2 text-[#1d1d1f]">Complete Payment</h2>
                 <p className="text-[#86868b] font-medium mb-8">Scan to pay exactly <span className="text-[#1d1d1f] font-bold">{price}</span></p>
 
-                <div className="relative glass-panel p-6 rounded-[2.5rem] border-2 border-amberMain/20 mb-8 bg-white shadow-xl">
+                <div className="relative glass-panel p-6 rounded-[2.5rem] border-2 border-black/5 mb-8 bg-white shadow-xl">
                     <img src={qrCodeUrl} alt="UPI QR Code" className="w-[200px] h-[200px] rounded-2xl" />
-                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-amberMain text-white text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg">
+                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-black text-white text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg">
                         Scan with any app
                     </div>
                 </div>
@@ -470,9 +469,9 @@ export default function BuyPage() {
                    )}
                 </div>
 
-                <div className="mt-8 p-6 rounded-3xl bg-amber-50 border border-amber-200 text-left">
-                    <h4 className="font-bold text-amber-900 text-sm mb-2 uppercase tracking-tight">Instructions:</h4>
-                    <ul className="text-xs text-amber-800 space-y-2 font-medium leading-relaxed">
+                <div className="mt-8 p-6 rounded-3xl bg-black/2 border border-black/10 text-left">
+                    <h4 className="font-bold text-black/60 text-sm mb-2 uppercase tracking-tight">Instructions:</h4>
+                    <ul className="text-xs text-black/40 space-y-2 font-medium leading-relaxed">
                         <li>1. Use GPay, PhonePe, or any UPI app.</li>
                         <li>2. Ensure the payer matches: <span className="font-bold">{MERCHANT_NAME}</span></li>
                         <li>3. After payment, take a screenshot and upload it above for faster verification.</li>
@@ -508,7 +507,7 @@ export default function BuyPage() {
           {faqs.map((faq, i) => {
             const [isOpen, setIsOpen] = useState(false);
             return (
-              <div key={i} className="border border-[#d2d2d7]/30 rounded-[2rem] bg-white overflow-hidden transition-all hover:border-amberMain/20">
+              <div key={i} className="border border-[#d2d2d7]/30 rounded-[2rem] bg-white overflow-hidden transition-all hover:border-black/10">
                 <button 
                   onClick={() => setIsOpen(!isOpen)}
                   className="w-full flex justify-between items-center p-8 text-left"

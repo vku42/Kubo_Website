@@ -16,9 +16,9 @@ export default function PrivacyPage() {
         <p className="text-xl text-[#86868b] font-medium mb-12">Last Updated: April 2026</p>
 
         <div className="space-y-16">
-          <section className="p-10 rounded-[3rem] bg-amberMain/5 border border-amberMain/10">
+          <section className="p-10 rounded-[3rem] bg-black/5 border border-black/10">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 bg-amberMain rounded-2xl flex items-center justify-center text-white">
+              <div className="w-12 h-12 bg-[#1d1d1f] rounded-2xl flex items-center justify-center text-white">
                 <Lock className="w-6 h-6" />
               </div>
               <h2 className="text-2xl font-bold tracking-tight text-[#1d1d1f]">Our Core Privacy Promise</h2>

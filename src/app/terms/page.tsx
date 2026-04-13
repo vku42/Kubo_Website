@@ -18,7 +18,7 @@ export default function TermsPage() {
         <div className="space-y-16">
           <section>
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 bg-amberMain/10 rounded-2xl flex items-center justify-center text-amberMain">
+              <div className="w-12 h-12 bg-black/5 rounded-2xl flex items-center justify-center text-black/40">
                 <Scale className="w-6 h-6" />
               </div>
               <h2 className="text-2xl font-bold tracking-tight text-[#1d1d1f]">1. Agreement to Terms</h2>

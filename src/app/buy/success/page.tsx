@@ -54,8 +54,8 @@ function SuccessContent() {
           className="glass-panel p-8 rounded-[2.5rem] border border-white/40 flex flex-col gap-6"
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-amberMain/10 rounded-2xl flex items-center justify-center">
-              <Package className="w-6 h-6 text-amberMain" />
+            <div className="w-12 h-12 bg-black/5 rounded-2xl flex items-center justify-center">
+              <Package className="w-6 h-6 text-black/40" />
             </div>
             <div>
               <p className="text-xs font-bold text-[#86868b] uppercase tracking-widest">Order ID</p>

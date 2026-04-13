@@ -50,7 +50,7 @@ export default function Specs() {
   return (
     <section className="w-full py-24 md:py-48 px-6 flex flex-col items-center relative overflow-hidden">
       {/* Visual Depth: Subtle Background Orb */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] bg-amberMain/5 rounded-full blur-[160px] pointer-events-none opacity-50" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] bg-black/[0.02] rounded-full blur-[160px] pointer-events-none opacity-50" />
       
       <div className="w-full max-w-6xl relative z-10">
         <motion.div
@@ -61,7 +61,7 @@ export default function Specs() {
            className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-10"
         >
           <div className="max-w-2xl">
-            <div className="text-xs font-bold tracking-[0.2em] uppercase text-amberMain mb-6">Technical Specifications</div>
+            <div className="text-xs font-bold tracking-[0.2em] uppercase text-[#86868b] mb-6">Technical Specifications</div>
             <h2 className="mb-4">
               Precision meets <br/>personality.
             </h2>

@@ -20,14 +20,14 @@ export default function Intelligence() {
         <motion.div 
           animate={{ scale: [1, 1.15, 1], rotate: [0, 180, 360] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent,rgba(245,158,11,0.1)_15%,transparent_40%,rgba(245,158,11,0.25)_60%,transparent_80%)] rounded-full blur-[100px] opacity-40"
+          className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent,rgba(255,255,255,0.03)_15%,transparent_40%,rgba(255,255,255,0.08)_60%,transparent_80%)] rounded-full blur-[100px] opacity-20"
         />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[25%] aspect-square bg-amberMain rounded-full blur-[120px] opacity-50" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[25%] aspect-square bg-white/10 rounded-full blur-[120px] opacity-30" />
       </div>
 
       <div className="w-full max-w-6xl relative z-10 flex flex-col items-center text-center">
         <motion.div style={{ y, opacity }} className="max-w-4xl">
-          <div className="text-xs font-bold tracking-[0.3em] uppercase text-amberMain mb-8 md:mb-10">Neural Architecture</div>
+          <div className="text-xs font-bold tracking-[0.3em] uppercase text-white/40 mb-8 md:mb-10">Neural Architecture</div>
           <h2 className="mb-8 md:mb-10">
             Intelligence <br/>beyond the cloud.
           </h2>

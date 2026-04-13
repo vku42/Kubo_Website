@@ -12,6 +12,7 @@ import type * as inventory from "../inventory.js";
 import type * as newsletter from "../newsletter.js";
 import type * as orders from "../orders.js";
 import type * as products from "../products.js";
+import type * as support from "../support.js";
 
 import type {
   ApiFromModules,
@@ -24,6 +25,7 @@ declare const fullApi: ApiFromModules<{
   newsletter: typeof newsletter;
   orders: typeof orders;
   products: typeof products;
+  support: typeof support;
 }>;
 
 /**

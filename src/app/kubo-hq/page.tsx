@@ -50,14 +50,14 @@ function AdminContent() {
           animate={{ opacity: 1, y: 0 }}
           className="glass-panel p-12 rounded-[3rem] border border-white max-w-md w-full text-center shadow-2xl"
         >
-          <div className="w-20 h-20 bg-amberMain/10 rounded-full flex items-center justify-center mx-auto mb-8 text-amberMain">
+          <div className="w-20 h-20 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-8 text-[#1d1d1f]">
             <Lock className="w-10 h-10" />
           </div>
           <h1 className="text-3xl font-bold mb-4">Unauthorized Access</h1>
           <div className="p-4 bg-red-50 text-red-600 rounded-2xl text-sm font-bold border border-red-100 mb-8 mt-8">
             Access Denied
           </div>
-          <a href="/" className="text-amberMain font-bold hover:underline flex items-center justify-center gap-2 group">
+          <a href="/" className="text-[#1d1d1f] font-bold hover:underline flex items-center justify-center gap-2 group">
             Return to Storefront <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
         </motion.div>
@@ -83,7 +83,7 @@ function AdminContent() {
     switch (status) {
       case "paid": return "bg-green-100 text-green-700 border-green-200";
       case "shipped": return "bg-blue-100 text-blue-700 border-blue-200";
-      case "proof_uploaded": return "bg-amber-100 text-amber-700 border-amber-200";
+      case "proof_uploaded": return "bg-gray-100 text-gray-700 border-gray-200";
       case "verification_pending": return "bg-purple-100 text-purple-700 border-purple-200";
       case "rejected": return "bg-red-100 text-red-700 border-red-200";
       default: return "bg-gray-100 text-gray-700 border-gray-200";
@@ -105,7 +105,7 @@ function AdminContent() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-amberMain rounded-2xl flex items-center justify-center text-white shadow-lg shadow-amberMain/20">
+              <div className="w-10 h-10 bg-[#1d1d1f] rounded-2xl flex items-center justify-center text-white shadow-lg shadow-black/10">
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <h1 className="text-4xl font-bold tracking-tight text-[#1d1d1f]">Kubo HQ</h1>
@@ -120,7 +120,7 @@ function AdminContent() {
               placeholder="Search by name, email, or ID..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-6 py-4 rounded-2xl bg-white border border-black/5 focus:border-amberMain/50 outline-none transition-all font-medium text-sm shadow-sm"
+              className="w-full pl-12 pr-6 py-4 rounded-2xl bg-white border border-black/5 focus:border-black/20 outline-none transition-all font-medium text-sm shadow-sm"
             />
           </div>
         </div>
@@ -130,7 +130,7 @@ function AdminContent() {
           {[
             { label: "Total Orders", value: stats.totalOrders, icon: Package, color: "text-blue-500", bg: "bg-blue-50" },
             { label: "Revenue (Est.)", value: `₹${stats.revenue.toLocaleString()}`, icon: IndianRupee, color: "text-green-500", bg: "bg-green-50" },
-            { label: "Pending Verification", value: stats.pendingVerification, icon: Clock, color: "text-amber-500", bg: "bg-amber-50" },
+            { label: "Pending Verification", value: stats.pendingVerification, icon: Clock, color: "text-gray-500", bg: "bg-gray-50" },
             { label: "Shipped", value: stats.shipped, icon: Truck, color: "text-purple-500", bg: "bg-purple-50" },
           ].map((stat, i) => (
             <motion.div 
@@ -178,7 +178,7 @@ function AdminContent() {
                         {order.paymentProofUrl && (
                           <button 
                             onClick={() => setSelectedProof(order.paymentProofUrl!)}
-                            className="flex items-center gap-1.5 text-amberMain hover:underline text-xs font-bold"
+                            className="flex items-center gap-1.5 text-black hover:underline text-xs font-bold"
                           >
                             <Eye className="w-3.5 h-3.5" /> View Proof
                           </button>
