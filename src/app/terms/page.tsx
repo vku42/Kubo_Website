@@ -1,24 +1,72 @@
+import { ArrowLeft, Scale, Shield, Truck, RotateCcw } from "lucide-react";
+import Link from "next/link";
+
 export default function TermsPage() {
   return (
-    <div className="w-full min-h-screen bg-[#fafafc] pt-40 pb-32 px-6 flex flex-col items-center">
+    <div className="min-h-screen bg-[#f5f5f7] pt-32 pb-24 px-6 md:px-12 flex flex-col items-center">
       <div className="w-full max-w-3xl">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-[#1d1d1f] mb-12">
-          Terms of Service
-        </h1>
-        <div className="prose prose-lg text-[#86868b] leading-relaxed">
-          <p className="font-medium text-[#1d1d1f] mb-8">Last Updated: April 2026</p>
-          
-          <h2 className="text-2xl font-bold text-[#1d1d1f] mt-12 mb-4">1. Acceptance of Terms</h2>
-          <p>By purchasing or using Kubo Bot, you agree to these terms. Kubo Robotics provides a companion hardware device and associated software services. We reserve the right to update these terms at any time.</p>
-          
-          <h2 className="text-2xl font-bold text-[#1d1d1f] mt-12 mb-4">2. Hardware Warranty</h2>
-          <p>Kubo comes with a standard 1-year limited warranty covering manufacturing defects. Damage caused by user negligence, water exposure, or third-party modifications voids this warranty immediately.</p>
-          
-          <h2 className="text-2xl font-bold text-[#1d1d1f] mt-12 mb-4">3. Data & Privacy</h2>
-          <p>Kubo calculates emotional states locally on the ESP-32 chip. We do not store or transmit raw audio/video data. Your focus data belongs entirely to you. Please read our Privacy Policy for more detailed information.</p>
-          
-          <h2 className="text-2xl font-bold text-[#1d1d1f] mt-12 mb-4">4. Refunds and Pre-orders</h2>
-          <p>Pre-orders are fully refundable until the unit ships. Once shipped, you have a 14-day window to return the product in its original, undamaged packaging for a full refund minus shipping costs.</p>
+        <Link 
+          href="/" 
+          className="inline-flex items-center gap-2 text-[#86868b] hover:text-[#1d1d1f] font-bold text-sm uppercase tracking-widest mb-12 transition-colors group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Home
+        </Link>
+        
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[#1d1d1f] mb-4">Terms of Service</h1>
+        <p className="text-xl text-[#86868b] font-medium mb-12">Last Updated: April 2026</p>
+
+        <div className="space-y-16">
+          <section>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 bg-amberMain/10 rounded-2xl flex items-center justify-center text-amberMain">
+                <Scale className="w-6 h-6" />
+              </div>
+              <h2 className="text-2xl font-bold tracking-tight text-[#1d1d1f]">1. Agreement to Terms</h2>
+            </div>
+            <p className="text-[#86868b] leading-relaxed font-medium text-lg">
+              By purchasing Kubo Bot, you agree to these terms. Kubo is a community-driven project and a unique desktop companion. By ordering, you support Batch 01 production.
+            </p>
+          </section>
+
+          <section>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500">
+                <Truck className="w-6 h-6" />
+              </div>
+              <h2 className="text-2xl font-bold tracking-tight text-[#1d1d1f]">2. Shipping & Pre-Order</h2>
+            </div>
+            <p className="text-[#86868b] leading-relaxed font-medium text-lg">
+              Batch 01 is estimated to ship in <strong>late Q3 2026</strong>. Shipping timelines are estimates based on production capacity. You will be notified via email when your unit is ready.
+            </p>
+          </section>
+
+          <section>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center text-red-500">
+                <Shield className="w-6 h-6" />
+              </div>
+              <h2 className="text-2xl font-bold tracking-tight text-[#1d1d1f]">3. No Warranty (Sold As-Is)</h2>
+            </div>
+            <p className="text-[#86868b] leading-relaxed font-medium text-lg">
+              Kubo Bot is provided <strong>"as-is" without any express or implied warranties</strong>. As a limited-run specialized companion, we cannot offer formal long-term hardware warranties. We build with care, but all sales are final upon delivery.
+            </p>
+          </section>
+
+          <section>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500">
+                <RotateCcw className="w-6 h-6" />
+              </div>
+              <h2 className="text-2xl font-bold tracking-tight text-[#1d1d1f]">4. Refund Policy</h2>
+            </div>
+            <p className="text-[#86868b] leading-relaxed font-medium text-lg">
+              Refunds are not standard for pre-order batches. However, we may consider refund requests on a case-by-case basis at our sole discretion if a reasonable request is made prior to shipping. Once shipped, all sales are considered final.
+            </p>
+          </section>
+
+          <div className="pt-16 border-t border-black/5 text-center">
+            <p className="text-[#86868b] font-medium italic">General Inquiries: <strong>hello@kubobot.com</strong></p>
+          </div>
         </div>
       </div>
     </div>

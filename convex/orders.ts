@@ -1,4 +1,4 @@
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 export const createPendingOrder = mutation({
@@ -75,5 +75,34 @@ export const attachPaymentProof = mutation({
       paymentProofUrl: args.proofUrl,
       status: "proof_uploaded",
     });
+  },
+});
+// ... existing mutations ...
+
+export const getOrders = query({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db
+      .query("orders")
+      .order("desc")
+      .collect();
+  },
+});
+
+export const updateStatus = mutation({
+  args: {
+    orderId: v.id("orders"),
+    newStatus: v.string(), // "paid", "shipped", "rejected", "verification_pending"
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.orderId, { status: args.newStatus });
+
+    // Decrement inventory only if it's set to "paid" for the first time
+    if (args.newStatus === "paid") {
+      const stock = await ctx.db.query("inventory").first();
+      if (stock) {
+        await ctx.db.patch(stock._id, { unitsLeft: Math.max(0, stock.unitsLeft - 1) });
+      }
+    }
   },
 });

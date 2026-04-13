@@ -28,6 +28,7 @@ export default function BuyPage() {
   const [copied, setCopied] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState<string | null>(null);
   const [proofUploaded, setProofUploaded] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<"manual_upi" | "instamojo">("manual_upi");
   
   const attachProof = useMutation(api.orders.attachPaymentProof);
@@ -117,19 +118,27 @@ export default function BuyPage() {
   };
 
   const onUploadSuccess = async (result: any) => {
-    if (result.event === "success" && currentOrderId) {
+    // Only proceed if we have a successful result and a valid order ID
+    if (result.event === "success" && result.info?.secure_url && currentOrderId) {
+      if (isRedirecting) return;
+      
       const url = result.info.secure_url;
+      setIsRedirecting(true);
+      
       try {
         await attachProof({
           orderId: currentOrderId as any,
           proofUrl: url
         });
         setProofUploaded(true);
-        // Automatic redirection after binding the proof
-        router.push(`/buy/success?id=${currentOrderId}`);
+        // Explicit delay to allow the user to see the "Uploaded" state
+        setTimeout(() => {
+          router.push(`/buy/success?id=${currentOrderId}`);
+        }, 1500);
       } catch (err) {
         console.error("Proof link failed:", err);
-        alert("Failed to link screenshot. Please try again.");
+        setIsRedirecting(false);
+        alert("Found your file, but failed to link it to your order. Please try again! *sad beep*");
       }
     }
   };
@@ -410,19 +419,50 @@ export default function BuyPage() {
                             sources: ['local', 'camera'],
                             resourceType: 'image',
                             clientAllowedFormats: ['png', 'jpeg', 'jpg', 'webp'],
-                            maxFileSize: 5000000, // 5MB limit
+                            maxFileSize: 5000000, 
                             multiple: false,
                             maxImageFileSize: 5000000,
+                            singleUploadAutoClose: true,
+                            showAdvancedOptions: false,
+                            cropping: false,
+                            styles: {
+                              palette: {
+                                window: "#FFFFFF",
+                                sourceBg: "#F4F4F5",
+                                windowBorder: "#90a0b3",
+                                tabIcon: "#000000",
+                                inactiveTabIcon: "#555A5F",
+                                menuIcons: "#555A5F",
+                                link: "#1d1d1f",
+                                action: "#F59E0B",
+                                inProgress: "#FBBF24",
+                                complete: "#10B981",
+                                error: "#EF4444",
+                                textDark: "#000000",
+                                textLight: "#FFFFFF"
+                              }
+                            }
                           }}
                           onSuccess={onUploadSuccess}
                         >
                           {({ open }) => (
                             <button
+                              type="button"
+                              disabled={isRedirecting}
                               onClick={() => open()}
-                              className="w-full py-5 rounded-2xl border-2 border-dashed border-amberMain/40 bg-amberMain/5 flex flex-col items-center gap-2 hover:bg-amberMain/10 transition-colors group"
+                              className="w-full py-6 rounded-2xl border-2 border-dashed border-amberMain/40 bg-amberMain/5 flex flex-col items-center gap-2 hover:bg-amberMain/10 transition-all group disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                               <QrCode className="w-8 h-8 text-amberMain group-hover:scale-110 transition-transform" />
-                               <span className="font-bold text-amberMain text-sm">Select Payment Screenshot</span>
+                               {isRedirecting ? (
+                                 <>
+                                   <Loader2 className="w-8 h-8 text-amberMain animate-spin" />
+                                   <span className="font-bold text-amberMain text-sm animate-pulse">Processing Proof...</span>
+                                 </>
+                               ) : (
+                                 <>
+                                   <QrCode className="w-8 h-8 text-amberMain group-hover:scale-110 transition-transform" />
+                                   <span className="font-bold text-amberMain text-sm">Select Payment Screenshot</span>
+                                 </>
+                               )}
                             </button>
                           )}
                         </CldUploadWidget>
@@ -440,12 +480,20 @@ export default function BuyPage() {
                 </div>
 
                 {!proofUploaded && (
-                  <Link 
-                    href={`/buy/success?id=manual_${Date.now()}`}
-                    className="w-full mt-6 py-4 rounded-2xl border border-black/10 text-[#1d1d1f] font-bold text-sm hover:bg-black/5 transition-colors flex items-center justify-center gap-2 group"
-                  >
-                    I've already paid, take me to Success <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                  <div className="w-full mt-12 pt-8 border-t border-black/5 flex flex-col items-center gap-4">
+                    <p className="text-[#86868b] text-[11px] font-bold uppercase tracking-widest">Already paid in a previous session?</p>
+                    <button 
+                      onClick={() => {
+                        const confirm = window.confirm("Only proceed if you have already completed the payment and want to see your order status. Continue?");
+                        if (confirm) {
+                          router.push(`/buy/success?id=manual_${Date.now()}`);
+                        }
+                      }}
+                      className="text-[#1d1d1f] font-bold text-xs hover:bg-black/5 px-6 py-3 rounded-xl border border-black/10 transition-colors flex items-center justify-center gap-2 group"
+                    >
+                      Skip to Success Page <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
                 )}
               </motion.div>
             )}
