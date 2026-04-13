@@ -4,77 +4,80 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
+const steps = [
+  {
+    number: "01",
+    title: "Instant Connection.",
+    accent: "Say Hello.",
+    image: "/Photos/test1.jpeg",
+    desc: "Seamless setup. Plug into power and Kubo wakes up instantly to meet its new owner."
+  },
+  {
+    number: "02",
+    title: "Deep Focus.",
+    accent: "Zero Distractions.",
+    image: "/Photos/test2.jpeg",
+    desc: "Activate focus mode with a single tap. Kubo manages your environment, blocking distractions."
+  },
+  {
+    number: "03",
+    title: "Emotional Synergy.",
+    accent: "Grow Daily.",
+    image: "/Photos/test3.jpeg",
+    desc: "The more you interact, the more Kubo learns your rhythms, becoming a true partner in your desk life."
+  }
+];
+
 export default function HowItWorks() {
   const targetRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
-
+  const { scrollYProgress } = useScroll({ target: targetRef });
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.66%"]);
 
   return (
-    <section ref={targetRef} className="relative h-[300vh] w-full bg-transparent">
-      {/* Scroll Hint for Mobile */}
-      <div className="absolute top-[12vh] left-1/2 -translate-x-1/2 z-20 md:hidden flex flex-col items-center gap-2 opacity-40">
-        <span className="text-xs font-bold tracking-[0.2em] uppercase">Scroll to learn</span>
-        <div className="w-[1px] h-8 bg-black/20" />
-      </div>
+    <section ref={targetRef} className="relative h-[300vh] w-full bg-transparent overflow-clip">
+      {/* Visual Depth: Moving Light Leak */}
+      <motion.div 
+        style={{ translateX: useTransform(scrollYProgress, [0, 1], [-200, 200]) }}
+        className="fixed top-0 left-0 w-full h-screen bg-gradient-to-r from-transparent via-amberMain/5 to-transparent pointer-events-none z-0"
+      />
 
       <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
         <motion.div style={{ x }} className="flex w-[300vw] h-full items-center">
-          
-          {/* Step 1 */}
-          <div className="w-screen h-full flex flex-col items-center justify-center px-12 md:px-24 pt-24 pb-12">
-            <h2 className="text-4xl md:text-[4rem] font-bold tracking-tighter text-[#1d1d1f] mb-8 text-center leading-[1.1]">
-              Plug it in. <br/><span className="text-[#86868b]">Say Hello.</span>
-            </h2>
-            <div className="w-full max-w-4xl max-h-[70vh] aspect-[4/5] md:aspect-video relative rounded-[2.5rem] overflow-hidden glass-panel flex items-center justify-center bg-[#f5f5f7]">
-                 <p className="text-amberMain font-bold text-2xl tracking-widest uppercase absolute z-10"></p>
-               <Image 
-                 src="/Photos/test1.jpeg" 
-                 alt="Kubo Setup" 
-                 fill 
-                 sizes="(max-width: 768px) 100vw, 80vw"
-                 className="object-cover opacity-90" 
-               />
-            </div>
-          </div>
+          {steps.map((step, i) => (
+            <div key={i} className="w-screen h-full flex flex-col items-center justify-center px-6 md:px-24 pt-20 md:pt-32 pb-12 relative">
+              <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-12 md:gap-24">
+                
+                {/* Text Content */}
+                <div className="flex-1 flex flex-col text-center md:text-left">
+                  <div className="flex items-center gap-4 mb-6 md:mb-8 justify-center md:justify-start">
+                     <span className="text-amberMain font-bold text-lg tracking-[0.2em]">{step.number}</span>
+                     <div className="w-12 h-px bg-black/10" />
+                  </div>
+                  <h2 className="mb-6 md:mb-8">
+                    {step.title} <br/><span className="text-[#d2d2d7]">{step.accent}</span>
+                  </h2>
+                  <p className="text-lg md:text-2xl text-[#86868b] font-medium tracking-tighter leading-tight max-w-md mx-auto md:mx-0">
+                    {step.desc}
+                  </p>
+                </div>
 
-          {/* Step 2 */}
-          <div className="w-screen h-full flex flex-col items-center justify-center px-12 md:px-24 pt-24 pb-12">
-            <h2 className="text-4xl md:text-[4rem] font-bold tracking-tighter text-[#1d1d1f] mb-8 text-center leading-[1.1]">
-              Focus mode. <br/><span className="text-[#86868b]">Zero Distractions.</span>
-            </h2>
-            <div className="w-full max-w-4xl max-h-[70vh] aspect-[4/5] md:aspect-video relative rounded-[2.5rem] overflow-hidden glass-panel flex items-center justify-center bg-[#f5f5f7]">
-                 <p className="text-amberMain font-bold text-2xl tracking-widest uppercase absolute z-10"></p>
-               <Image 
-                 src="/Photos/test2.jpeg" 
-                 alt="Kubo Focus Mode" 
-                 fill 
-                 sizes="(max-width: 768px) 100vw, 80vw"
-                 className="object-cover opacity-90" 
-               />
-            </div>
-          </div>
+                {/* Image Showcase */}
+                <div className="flex-1 w-full max-w-2xl">
+                  <div className="w-full aspect-[4/3] relative rounded-[3rem] overflow-hidden glass-panel shadow-[0_40px_100px_rgba(0,0,0,0.1)] group">
+                    <Image 
+                      src={step.image} 
+                      alt={step.title} 
+                      fill 
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-[2s] ease-out" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
+                </div>
 
-          {/* Step 3 */}
-          <div className="w-screen h-full flex flex-col items-center justify-center px-12 md:px-24 pt-24 pb-12">
-            <h2 className="text-4xl md:text-[4rem] font-bold tracking-tighter text-[#1d1d1f] mb-8 text-center leading-[1.1]">
-              Grow together. <br/><span className="text-[#86868b]">Every single day.</span>
-            </h2>
-            <div className="w-full max-w-4xl max-h-[70vh] aspect-[4/5] md:aspect-video relative rounded-[2.5rem] overflow-hidden glass-panel flex items-center justify-center bg-[#f5f5f7]">
-                 <p className="text-amberMain font-bold text-2xl tracking-widest uppercase absolute z-10"></p>
-               <Image 
-                 src="/Photos/test3.jpeg" 
-                 alt="Kubo Companion" 
-                 fill 
-                 sizes="(max-width: 768px) 100vw, 80vw"
-                 className="object-cover opacity-90" 
-               />
+              </div>
             </div>
-          </div>
-
+          ))}
         </motion.div>
       </div>
     </section>

@@ -23,17 +23,17 @@ export default function BuyCTA() {
   const skew = useTransform(smoothVelocity, [-1000, 1000], [2, -2]);
   const x = useTransform(scrollY, [0, 5000], [0, -1000]);
   return (
-    <section ref={containerRef} className="w-full py-40 px-6 flex flex-col items-center bg-transparent relative overflow-hidden">
+    <section ref={containerRef} className="w-full py-24 md:py-32 px-6 flex flex-col items-center bg-transparent relative overflow-hidden">
       
       {/* Massive Velocity Marquee behind the CTA */}
       <motion.div 
         style={{ skew, x }} 
-        className="absolute top-1/2 left-0 -translate-y-1/2 whitespace-nowrap opacity-[0.03] pointer-events-none select-none flex"
+        className="absolute top-1/2 left-0 -translate-y-1/2 whitespace-nowrap opacity-[0.02] pointer-events-none select-none flex"
       >
         <span className="text-[20rem] font-bold tracking-tighter leading-none block">PRE-ORDER BATCH ONE PRE-ORDER BATCH ONE</span>
       </motion.div>
 
-      <div className="w-full max-w-4xl bg-white border border-[#d2d2d7]/30 shadow-[0_40px_100px_rgba(0,0,0,0.08)] rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden backdrop-blur-xl">
+      <div className="w-full max-w-4xl bg-white border border-[#d2d2d7]/30 shadow-[0_40px_100px_rgba(0,0,0,0.06)] rounded-[3rem] p-10 md:p-16 text-center relative overflow-hidden backdrop-blur-xl">
         
         <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -43,18 +43,18 @@ export default function BuyCTA() {
             className="relative z-10 flex flex-col items-center"
         >
           {/* Live FOMO Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-red-500/20 bg-red-500/10 mb-8">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
-            <span className="text-xs font-bold tracking-widest text-red-600 uppercase">Only {stock} units remaining</span>
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-red-500/10 bg-red-500/5 mb-8">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+            <span className="text-[10px] font-bold tracking-[0.2em] text-red-600 uppercase">Batch 01 — {stock} units left</span>
           </div>
 
-          <h2 className="text-5xl md:text-[4.5rem] leading-[1.05] font-bold tracking-tighter mb-6 text-[#1d1d1f]">
+          <h2 className="mb-6 text-balance">
             Ready for your <br /> true companion?
           </h2>
-          <p className="text-lg md:text-2xl text-[#86868b] font-medium tracking-tight mb-12 max-w-xl text-balance">
-            Pre-order Kubo today. {shipping}.
+          <p className="text-xl md:text-[1.75rem] leading-tight text-[#86868b] font-medium tracking-tighter mb-12 max-w-xl text-balance">
+            Pre-order Kubo today. <br className="hidden md:block"/> {shipping}.
           </p>
-          <Magnetic strength={2}>
+          <Magnetic strength={1.2}>
             <Link
               href="/buy"
               onMouseEnter={playHoverSound}

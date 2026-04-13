@@ -11,32 +11,36 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="w-full py-32 bg-transparent flex flex-col items-center overflow-hidden border-t border-[#d2d2d7]/30">
-      <div className="text-center mb-16">
-        <h2 className="text-[3rem] font-bold tracking-tighter mb-4 text-[#1d1d1f]">Loved by early adopters.</h2>
-        <p className="text-xl text-[#86868b] font-medium tracking-tight">Don't just take our word for it.</p>
+    <section className="w-full py-32 md:py-48 bg-transparent flex flex-col items-center overflow-hidden border-t border-[#d2d2d7]/30 relative">
+      <div className="text-center mb-24 px-6">
+        <h2 className="mb-4">Loved by early adopters.</h2>
+        <p className="text-xl md:text-2xl text-[#86868b] font-medium tracking-tight">Don't just take our word for it.</p>
       </div>
 
       <div className="relative w-full max-w-7xl flex flex-col items-center">
+        {/* Masking Gradient for Premium Fade */}
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
         {/* Marquee row 1 */}
-        <div className="flex gap-8 w-max animate-[marquee_30s_linear_infinite] px-4">
-          {[...testimonials, ...testimonials].map((t, i) => (
-            <div key={i} className="w-[380px] p-10 bento-card select-none">
-              <p className="text-[1.1rem] font-medium mb-8 leading-relaxed text-[#1d1d1f]">"{t.text}"</p>
+        <div className="flex gap-6 w-max animate-[marquee_40s_linear_infinite] px-4">
+          {[...testimonials, ...testimonials, ...testimonials].map((t, i) => (
+            <div key={i} className="w-[320px] md:w-[420px] p-10 md:p-12 bento-card select-none flex flex-col justify-between min-h-[280px]">
+              <p className="text-lg md:text-xl font-medium mb-12 leading-relaxed text-[#1d1d1f] tracking-tight italic">"{t.text}"</p>
               <div>
-                <p className="font-bold text-[#1d1d1f] tracking-tight">{t.name}</p>
-                <p className="text-sm text-[#86868b] font-medium">{t.role}</p>
+                <p className="font-bold text-[#1d1d1f] tracking-tight uppercase text-xs mb-1 tracking-[0.1em]">{t.role}</p>
+                <p className="text-xl font-bold text-[#1d1d1f] tracking-tighter">{t.name}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
       
-      {/* Add custom CSS animation for the marquee in a style block or tailwind */}
       <style dangerouslySetInnerHTML={{ __html: `
+        :root { --background: #fbfbfd; }
         @keyframes marquee {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          100% { transform: translateX(-33.33%); }
         }
       `}} />
     </section>

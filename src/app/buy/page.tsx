@@ -19,7 +19,7 @@ const faqs = [
 
 const MERCHANT_UPI = "thekubo@pthdfc";
 const MERCHANT_NAME = "Kubo Bot";
-const PRODUCT_AMOUNT = "10";
+const PRODUCT_AMOUNT = "2999";
 
 export default function BuyPage() {
   const router = useRouter();
@@ -225,10 +225,10 @@ export default function BuyPage() {
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </button>
 
-                <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-black/5 text-center text-xs text-[#86868b] font-semibold uppercase tracking-widest">
+                <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-black/5 text-center text-xs text-[#86868b] font-semibold uppercase tracking-widest leading-tight">
                   <div className="flex flex-col items-center gap-2"><Truck className="h-5 w-5 text-amberMain" /> {shipping}</div>
-                  <div className="flex flex-col items-center gap-2"><Shield className="h-5 w-5 text-amberMain" /> 1Y Warranty</div>
-                  <div className="flex flex-col items-center gap-2"><RotateCcw className="h-5 w-5 text-amberMain" /> 14D Returns</div>
+                  <div className="flex flex-col items-center gap-2"><Check className="h-5 w-5 text-amberMain" /> Batch 01 Quality</div>
+                  <div className="flex flex-col items-center gap-2"><RotateCcw className="h-5 w-5 text-amberMain" /> Refunds on Request</div>
                 </div>
               </motion.div>
             ) : step === 1 ? (
