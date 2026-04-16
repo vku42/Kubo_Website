@@ -11,26 +11,43 @@ const features = [
     description: "Kubo processes every expression and interaction locally on its ESP32-C3 core. Your privacy is hardware-locked.",
     icon: <Brain className="w-6 h-6 text-[#1d1d1f]" />,
     span: "col-span-1 md:col-span-2",
+    stat: "100% Offline",
+    statLabel: "No cloud, ever",
   },
   {
     title: "Pure OLED Glass",
     description: "A 1.3\" deep-black display brings subtle kinetic life to your desk.",
     icon: <Sparkles className="w-6 h-6 text-[#1d1d1f]" />,
     span: "col-span-1",
+    stat: "20+ Faces",
+    statLabel: "Animated expressions",
   },
   {
     title: "Focus State Sync",
     description: "Integrated deep-work timers that fight distraction by reacting to your presence.",
     icon: <Zap className="w-6 h-6 text-[#1d1d1f]" />,
     span: "col-span-1",
+    stat: "32hr Standby",
+    statLabel: "Battery life",
   },
   {
     title: "Zero-Judgment Core",
     description: "A companion designed to listen and support, built with pure organic PLA+ materials.",
     icon: <Smile className="w-6 h-6 text-[#1d1d1f]" />,
+    span: "col-span-1",
+    stat: "₹2,999",
+    statLabel: "One-time, no subscription",
+  },
+  {
+    title: "Built in India 🇮🇳",
+    description: "Proudly designed and assembled in India. Supporting local makers, hardware engineers, and the future of Indian robotics.",
+    icon: <Shield className="w-6 h-6 text-[#1d1d1f]" />,
     span: "col-span-1 md:col-span-2",
+    stat: "Batch 01",
+    statLabel: "Limited to 50 units",
   },
 ];
+
 
 function BentoCard({ feature, delay }: { feature: any; delay: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -52,7 +69,7 @@ function BentoCard({ feature, delay }: { feature: any; delay: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 1.2, delay, ease: [0.16, 1, 0.3, 1] }}
-      className={`relative p-10 bento-card flex flex-col group cursor-default overflow-hidden ${feature.span} min-h-[340px] shadow-[0_8px_32px_rgba(0,0,0,0.03)]`}
+      className={`relative p-6 md:p-10 bento-card flex flex-col group cursor-default overflow-hidden ${feature.span} min-h-[320px] md:min-h-[340px] shadow-[0_8px_32px_rgba(0,0,0,0.03)]`}
     >
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-[32px] opacity-0 transition duration-500 group-hover:opacity-100 z-10"
@@ -75,6 +92,14 @@ function BentoCard({ feature, delay }: { feature: any; delay: number }) {
         </div>
 
         <div className="mt-auto">
+          {feature.stat && (
+            <div className="mb-4 inline-flex items-baseline gap-2">
+              <span className="text-3xl font-bold tracking-tighter text-[#1d1d1f] leading-none">{feature.stat}</span>
+              {feature.statLabel && (
+                <span className="text-[11px] font-bold uppercase tracking-widest text-[#86868b]">{feature.statLabel}</span>
+              )}
+            </div>
+          )}
           <h3 className="text-2xl font-bold mb-4 tracking-tighter text-[#1d1d1f] leading-tight">{feature.title}</h3>
           <p className="text-[#86868b] font-medium leading-relaxed text-lg max-w-[240px]">{feature.description}</p>
         </div>

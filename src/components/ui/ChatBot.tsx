@@ -2,69 +2,50 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, X, Send, Bot, User, Sparkles, ArrowRight, ExternalLink } from "lucide-react";
-import Image from "next/image";
+import { X, Send, Bot, Sparkles, Zap } from "lucide-react";
+import { SUGGESTED_QUESTIONS } from "@/lib/kubo-knowledge";
 
 type Message = {
   role: "bot" | "user";
   content: string;
-  isSuggestion?: boolean;
 };
-
-const KNOWLEDGE_BASE = [
-  {
-    keywords: ["price", "cost", "how much", "buy", "order"],
-    answer: "Kubo Bot is currently available for pre-order at a special price of ₹2,999 for Batch 01. You can secure yours on our 'Buy' page!"
-  },
-  {
-    keywords: ["spec", "technical", "hardware", "processor", "battery", "size"],
-    answer: "Kubo is a 50x50mm cube powered by a Xiao ESP32 C3 processor. It features a 1.3\" OLED display, a 500mAh battery (5hrs active), and is built from premium PLA+ material."
-  },
-  {
-    keywords: ["ship", "delivery", "when", "arrive"],
-    answer: "Batch 01 pre-orders are expected to begin shipping in late Q3 2026. We'll keep you updated every step of the way!"
-  },
-  {
-    keywords: ["privacy", "offline", "data", "secure"],
-    answer: "Kubo is 100% private. All emotional processing and AI models run locally on the device. Your data never leaves your desk."
-  },
-  {
-    keywords: ["what is", "kubo", "who are you"],
-    answer: "I'm Kubo, your emotional AI desktop companion! I'm here to keep you focused, keep you company, and make your workspace feel alive."
-  }
-];
-
-const SUGGESTIONS = [
-  "What are the specs?",
-  "How much does it cost?",
-  "Is it private?",
-  "When will it ship?"
-];
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isTyping, setIsTyping] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "bot", content: "Hi there! I'm Kubo's digital twin. How can I help you today? *blink*" }
+    {
+      role: "bot",
+      content: "Hi! I'm Kubo's AI assistant. Ask me anything about your new desk companion — specs, ordering, shipping, you name it 😊",
+    },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [streamingContent, setStreamingContent] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages, isTyping]);
+  }, [messages, isStreaming, streamingContent]);
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      setTimeout(() => inputRef.current?.focus(), 300);
+    }
+  }, [isOpen]);
 
   const handleSend = async (text: string) => {
-    if (!text.trim() || isTyping) return;
+    const trimmed = text.trim();
+    if (!trimmed || isStreaming) return;
 
-    // Add user message
-    const userMessage: Message = { role: "user", content: text };
+    const userMessage: Message = { role: "user", content: trimmed };
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
     setInputValue("");
-    setIsTyping(true);
+    setIsStreaming(true);
+    setStreamingContent("");
 
     try {
       const response = await fetch("/api/chat", {
@@ -73,122 +54,169 @@ export default function ChatBot() {
         body: JSON.stringify({ messages: updatedMessages }),
       });
 
-      const data = await response.json();
-      
-      if (data.content) {
-        setMessages(prev => [...prev, { role: "bot", content: data.content }]);
-      } else {
-        setMessages(prev => [...prev, { role: "bot", content: "I'm having a little trouble thinking. *wince* Can we try that again?" }]);
+      if (!response.ok || !response.body) {
+        throw new Error("Stream failed");
       }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let fullContent = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        fullContent += chunk;
+        setStreamingContent(fullContent);
+      }
+
+      // Commit to messages
+      setMessages(prev => [...prev, { role: "bot", content: fullContent }]);
+      setStreamingContent("");
     } catch (error) {
-       console.error("Chat Error:", error);
-       setMessages(prev => [...prev, { role: "bot", content: "My connection seems lost! *sad bleep* Please try again in a moment." }]);
+      console.error("Chat Error:", error);
+      setMessages(prev => [
+        ...prev,
+        { role: "bot", content: "Hmm, I had a little hiccup. Could you try again?" },
+      ]);
+      setStreamingContent("");
     } finally {
-      setIsTyping(false);
+      setIsStreaming(false);
     }
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend(inputValue);
+    }
+  };
+
+  // All messages to render, plus the in-progress streaming bubble
+  const allMessages = messages;
 
   return (
     <div className="fixed bottom-4 md:bottom-6 left-4 md:left-6 z-[9999] flex flex-col items-start">
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: "bottom left" }}
+            key="chatbot-panel"
+            initial={{ opacity: 0, y: 24, scale: 0.95, transformOrigin: "bottom left" }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="w-[calc(100vw-2rem)] md:w-[400px] h-[70vh] md:h-[600px] mb-4 overflow-hidden rounded-[2rem] md:rounded-[2.5rem] glass-panel bg-white/95 md:bg-white/65 border border-white/40 shadow-[0_32px_80px_rgba(0,0,0,0.1)] flex flex-col"
+            exit={{ opacity: 0, y: 24, scale: 0.95 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="w-[calc(100vw-2rem)] md:w-[420px] mb-4 overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-white/95 backdrop-blur-2xl border border-black/8 shadow-[0_40px_100px_rgba(0,0,0,0.15)] flex flex-col"
+            style={{ height: "min(70vh, 620px)" }}
           >
             {/* Header */}
-            <div className="p-6 bg-white/50 backdrop-blur-xl border-b border-black/5 flex justify-between items-center">
+            <div className="px-6 py-5 bg-[#1d1d1f] flex justify-between items-center flex-shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shadow-lg shadow-black/10">
-                  <Bot className="w-6 h-6 text-white" />
+                <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center">
+                  <Bot className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-[#1d1d1f] tracking-tight text-base">Kubo Support</h3>
+                  <h3 className="font-bold text-white tracking-tight text-sm leading-none mb-1">
+                    Ask Kubo AI
+                  </h3>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                    <span className="text-[10px] font-bold text-[#86868b] uppercase tracking-widest">AI Online</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                    <span className="text-[10px] font-semibold text-white/50 uppercase tracking-widest">
+                      Powered by Gemini
+                    </span>
                   </div>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
-                className="w-8 h-8 rounded-full border border-black/5 flex items-center justify-center hover:bg-black/5 transition-colors"
+                aria-label="Close chatbot"
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors"
               >
-                <X className="w-4 h-4 text-[#1d1d1f]" />
+                <X className="w-4 h-4 text-white/70" />
               </button>
             </div>
 
-            {/* Chat Messages */}
-            <div 
+            {/* Messages */}
+            <div
               ref={scrollRef}
-              className="flex-1 overflow-y-auto p-6 flex flex-col gap-4 scroll-smooth"
+              className="flex-1 overflow-y-auto px-5 py-5 flex flex-col gap-3 scroll-smooth"
             >
-              {messages.map((m, i) => (
+              {allMessages.map((m, i) => (
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
                   key={i}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
                   className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  <div className={`max-w-[85%] p-4 rounded-3xl text-[13px] font-medium leading-relaxed ${
-                    m.role === "user" 
-                      ? "bg-[#1d1d1f] text-white rounded-tr-none shadow-lg shadow-black/5" 
-                      : "bg-[#f5f5f7] text-[#1d1d1f] rounded-tl-none border border-black/5"
-                  }`}>
+                  <div
+                    className={`max-w-[85%] px-4 py-3 text-[13px] font-medium leading-relaxed ${
+                      m.role === "user"
+                        ? "bg-[#1d1d1f] text-white rounded-3xl rounded-tr-sm shadow-sm"
+                        : "bg-[#f5f5f7] text-[#1d1d1f] rounded-3xl rounded-tl-sm border border-black/5"
+                    }`}
+                  >
                     {m.content}
                   </div>
                 </motion.div>
               ))}
-              {isTyping && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex justify-start"
-                >
-                  <div className="bg-[#f5f5f7] p-4 rounded-3xl rounded-tl-none border border-black/5 flex gap-1 items-center">
-                    <span className="w-1.5 h-1.5 bg-[#86868b] rounded-full animate-bounce [animation-delay:-0.3s]" />
-                    <span className="w-1.5 h-1.5 bg-[#86868b] rounded-full animate-bounce [animation-delay:-0.15s]" />
-                    <span className="w-1.5 h-1.5 bg-[#86868b] rounded-full animate-bounce" />
+
+              {/* Streaming bubble */}
+              {isStreaming && (
+                <div className="flex justify-start">
+                  <div className="max-w-[85%] px-4 py-3 text-[13px] font-medium leading-relaxed bg-[#f5f5f7] text-[#1d1d1f] rounded-3xl rounded-tl-sm border border-black/5">
+                    {streamingContent ? (
+                      <>
+                        {streamingContent}
+                        <span className="inline-block w-1 h-3.5 bg-black/40 ml-0.5 animate-pulse rounded-sm" />
+                      </>
+                    ) : (
+                      <span className="flex gap-1 items-center h-4">
+                        <span className="w-1.5 h-1.5 bg-[#86868b] rounded-full animate-bounce [animation-delay:-0.3s]" />
+                        <span className="w-1.5 h-1.5 bg-[#86868b] rounded-full animate-bounce [animation-delay:-0.15s]" />
+                        <span className="w-1.5 h-1.5 bg-[#86868b] rounded-full animate-bounce" />
+                      </span>
+                    )}
                   </div>
-                </motion.div>
+                </div>
               )}
             </div>
 
-            {/* Suggestions */}
-            <div className="px-6 pb-4 flex flex-wrap gap-2">
-               {SUGGESTIONS.map((s, i) => (
-                 <button
-                   key={i}
-                   disabled={isTyping}
-                   onClick={() => handleSend(s)}
-                   className="text-[10px] font-bold py-2 px-4 rounded-full border border-black/10 text-black/40 bg-black/5 hover:bg-black/10 transition-all disabled:opacity-50"
-                 >
-                   {s}
-                 </button>
-               ))}
-            </div>
+            {/* Suggested questions */}
+            {messages.length <= 2 && !isStreaming && (
+              <div className="px-5 pb-3 flex flex-wrap gap-2 flex-shrink-0">
+                {SUGGESTED_QUESTIONS.slice(0, 4).map((q, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleSend(q)}
+                    disabled={isStreaming}
+                    className="text-[10px] font-bold py-1.5 px-3.5 rounded-full bg-black/[0.04] border border-black/8 text-black/50 hover:bg-black/[0.08] hover:text-black/70 transition-all disabled:opacity-40"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* Input */}
-            <div className="p-6 pt-0">
+            <div className="p-4 pt-0 flex-shrink-0">
               <div className="relative flex items-center">
-                <input 
+                <input
+                  ref={inputRef}
                   type="text"
-                  autoFocus
-                  placeholder={isTyping ? "Kubo is thinking..." : "Ready to chat..."}
+                  placeholder={isStreaming ? "Kubo is thinking..." : "Ask anything about Kubo..."}
                   value={inputValue}
-                  disabled={isTyping}
+                  disabled={isStreaming}
                   onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && handleSend(inputValue)}
-                  className="w-full bg-[#f5f5f7] border border-transparent focus:border-black/20 focus:bg-white px-6 py-4 rounded-full outline-none transition-all pr-12 text-sm font-medium disabled:opacity-70"
+                  onKeyDown={handleKeyDown}
+                  className="w-full bg-[#f5f5f7] border border-transparent focus:border-black/15 focus:bg-white px-5 py-3.5 rounded-full outline-none transition-all pr-12 text-sm font-medium disabled:opacity-60 placeholder:text-black/30"
                 />
-                <button 
-                  disabled={isTyping || !inputValue.trim()}
+                <button
+                  disabled={isStreaming || !inputValue.trim()}
                   onClick={() => handleSend(inputValue)}
-                  className="absolute right-2 w-10 h-10 rounded-full bg-[#1d1d1f] flex items-center justify-center hover:scale-105 active:scale-95 transition-all group disabled:opacity-50"
+                  aria-label="Send message"
+                  className="absolute right-1.5 w-9 h-9 rounded-full bg-[#1d1d1f] flex items-center justify-center hover:scale-105 active:scale-95 transition-all disabled:opacity-40"
                 >
-                  <Send className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <Send className="w-3.5 h-3.5 text-white" />
                 </button>
               </div>
             </div>
@@ -196,26 +224,45 @@ export default function ChatBot() {
         )}
       </AnimatePresence>
 
-      {/* Toggle Button */}
+      {/* Floating toggle button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className={`w-16 h-16 rounded-full flex items-center justify-center shadow-[0_16px_40px_rgba(0,0,0,0.15)] transition-all duration-500 ${
-          isOpen ? "bg-white rotate-90" : "bg-[#1d1d1f]"
-        }`}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.93 }}
+        aria-label={isOpen ? "Close AI chat" : "Open AI chat"}
+        className="relative w-14 h-14 rounded-full flex items-center justify-center shadow-[0_16px_40px_rgba(0,0,0,0.2)] transition-colors duration-300 bg-[#1d1d1f]"
       >
-        {isOpen ? (
-          <X className="w-8 h-8 text-[#1d1d1f]" />
-        ) : (
-          <div className="relative">
-            <Bot className="w-8 h-8 text-white" />
-            <motion.div 
-               animate={{ scale: [1, 1.2, 1], opacity: [0, 1, 0] }}
-               transition={{ repeat: Infinity, duration: 2 }}
-               className="absolute -top-1 -right-1 w-3 h-3 bg-black/40 rounded-full"
-            />
-          </div>
+        <AnimatePresence mode="wait">
+          {isOpen ? (
+            <motion.div
+              key="close"
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <X className="w-6 h-6 text-white" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="open"
+              initial={{ rotate: 90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: -90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Sparkles className="w-6 h-6 text-white" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Notification pulse */}
+        {!isOpen && (
+          <motion.span
+            animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0, 0.6] }}
+            transition={{ repeat: Infinity, duration: 2.5 }}
+            className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-green-400 rounded-full border-2 border-white"
+          />
         )}
       </motion.button>
     </div>

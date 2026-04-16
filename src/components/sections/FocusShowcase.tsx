@@ -1,10 +1,12 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import CelestialBackground from "@/components/ui/CelestialBackground";
 import { Coffee, Brain, Timer } from "lucide-react";
 
 export default function FocusShowcase() {
+  const containerRef = useRef<HTMLElement>(null);
   const personas = [
     { name: "Freelancer", code: "F", focus: "20m", coach: "INTR Building streak" },
     { name: "Founder", code: "Fo", focus: "25m", coach: "DESR Build flow" },
@@ -12,8 +14,8 @@ export default function FocusShowcase() {
   ];
 
   return (
-    <section className="w-full py-24 md:py-36 px-6 bg-[#0a0a0b] relative overflow-hidden border-b border-white/5">
-      <CelestialBackground />
+    <section ref={containerRef} className="w-full py-24 md:py-36 px-6 bg-[#0a0a0b] relative overflow-hidden border-b border-white/5">
+      <CelestialBackground targetRef={containerRef} />
 
       <div className="w-full max-w-6xl mx-auto relative z-10 flex flex-col items-center">
         <motion.div 

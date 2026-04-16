@@ -80,7 +80,7 @@ export default function BuyPage() {
     
     try {
       // Trigger Checkout API with lead data
-      const res = await fetch("/api/checkout", { 
+      const res = await fetch("/api/place-order", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -106,9 +106,15 @@ export default function BuyPage() {
         // Manual UPI Flow: Move to the Payment Display step
         if (data.orderId) {
           setCurrentOrderId(data.orderId);
+          // Prefetch the success page early for instant transition later
+          router.prefetch("/buy/success");
+          setLoading(false);
+          setStep(2);
+        } else {
+          // Robustness: Only move to step 2 if we actually have an order ID
+          alert("Checkout failed: " + (data.error || "Server did not provide an Order ID."));
+          setLoading(false);
         }
-        setLoading(false);
-        setStep(2);
       }
     } catch (err) {
       console.error(err);
@@ -144,10 +150,10 @@ export default function BuyPage() {
         setProofUploaded(true);
         console.log("Proof attached successfully. Redirecting...");
         
-        // Explicit delay to allow the user to see the "Uploaded" state
+        // Accelerated transition
         setTimeout(() => {
           router.push(`/buy/success?id=${targetOrderId}`);
-        }, 1500);
+        }, 400);
       } catch (err) {
         console.error("Proof link failed:", err);
         setIsRedirecting(false);
@@ -163,14 +169,14 @@ export default function BuyPage() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-6 py-12 md:py-24">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <div className="w-full max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-24">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         {/* Left: Product Gallery */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3 md:gap-4">
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="w-full aspect-square relative rounded-[3rem] overflow-hidden glass-panel border border-white/40 shadow-[0_32px_80px_rgba(0,0,0,0.06)]"
+            className="w-full aspect-square relative rounded-[2rem] md:rounded-[3rem] overflow-hidden glass-panel border border-white/40 shadow-[0_32px_80px_rgba(0,0,0,0.06)]"
           >
             <Image 
               src="/Photos/img1.jpg" 
@@ -182,8 +188,8 @@ export default function BuyPage() {
               loading="eager"
             />
           </motion.div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="w-full aspect-square relative rounded-[2rem] overflow-hidden glass-panel border border-white/40">
+          <div className="grid grid-cols-2 gap-3 md:gap-4">
+            <div className="w-full aspect-square relative rounded-2xl md:rounded-[2rem] overflow-hidden glass-panel border border-white/40">
               <Image 
                 src="/Photos/img2.jpg" 
                 alt="Kubo Bot Detail" 
@@ -192,14 +198,14 @@ export default function BuyPage() {
                 className="object-cover" 
               />
             </div>
-            <div className="w-full aspect-square relative rounded-[2rem] overflow-hidden glass-panel bg-black/5 flex items-center justify-center border border-black/10">
-              <p className="font-bold text-black/40 tracking-widest text-[10px] uppercase text-center px-4 leading-relaxed">Limited Edition <br/>Batch 01</p>
+            <div className="w-full aspect-square relative rounded-2xl md:rounded-[2rem] overflow-hidden glass-panel bg-black/5 flex items-center justify-center border border-black/10 px-4">
+              <p className="font-bold text-black/40 tracking-widest text-[9px] md:text-[10px] uppercase text-center leading-relaxed">Limited Edition <br/>Batch 01</p>
             </div>
           </div>
         </div>
 
         {/* Right: Steps Container */}
-        <div className="relative min-h-[600px]">
+        <div className="relative min-h-[500px] md:min-h-[600px]">
           <AnimatePresence mode="wait">
             {step === 0 ? (
               <motion.div 
@@ -207,7 +213,7 @@ export default function BuyPage() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="flex flex-col pt-8"
+                className="flex flex-col pt-4 md:pt-8"
               >
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-red-500/20 bg-red-500/10 mb-4 self-start">
                     <span className="w-2 h-2 rounded-full bg-red-500 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />

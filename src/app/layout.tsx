@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "@/components/ConvexClientProvider";
@@ -12,69 +12,113 @@ import ChatBot from "@/components/ui/ChatBot";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const syne = Syne({ subsets: ["latin"], variable: "--font-syne" });
 
+const BASE_URL = "https://kubobot.com";
+
+export const viewport: Viewport = {
+  themeColor: "#fbfbfd",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
-  title: "Kubo Bot | Your Premium AI Desktop Companion",
-  description: "Meet Kubo—a modern desktop companion that keeps you productive, fights loneliness, and makes your desk alive. Built with premium materials and deep emotional intelligence.",
-  keywords: ["Kubo Bot", "AI Desktop Companion", "Productivity Tool", "Mental Health Bot", "Modern Desk Toy", "Emotional AI", "Kubo Robotics"],
-  authors: [{ name: "Kubo Robotics" }],
+  metadataBase: new URL(BASE_URL),
+  applicationName: "Kubo Bot",
+  title: {
+    default: "Kubo Bot | Premium AI Desktop Companion Robot — Made in India",
+    template: "%s | Kubo Bot",
+  },
+  description:
+    "Meet Kubo — the world's most emotionally intelligent desktop companion. 100% offline AI, 1.3\" OLED face, 32hr standby. Pre-order Batch 01 at ₹2,999. Ships Q3 2026.",
+  keywords: [
+    "Kubo Bot",
+    "AI Desktop Companion",
+    "AI Robot India",
+    "Productivity Robot",
+    "Desk Companion Robot",
+    "ESP32 Robot",
+    "Emotional AI Robot",
+    "Focus Timer Robot",
+    "Mental Health Bot",
+    "OLED Robot Face",
+    "Smart Desk Toy",
+    "Kubo Robotics",
+    "Pre-order Robot India",
+    "AI Companion India 2026",
+    "desktop robot India",
+    "AI robot buy India",
+  ],
+  authors: [{ name: "Kubo Robotics", url: BASE_URL }],
   creator: "Kubo Robotics",
   publisher: "Kubo Robotics",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
+  category: "Technology",
+  classification: "Consumer Electronics / AI Robotics",
+  formatDetection: { email: false, address: false, telephone: false },
+  alternates: {
+    canonical: BASE_URL,
   },
-  metadataBase: new URL("https://kubobot.com"),
   openGraph: {
-    title: "Kubo Bot | Your Premium AI Desktop Companion",
-    description: "Your desk buddy. Keeps you productive. Never judges. Always there.",
-    url: "https://kubobot.com",
+    title: "Kubo Bot | Premium AI Desktop Companion Robot",
+    description:
+      "Your desk buddy. Keeps you productive. Never judges. Always there. 100% offline AI — no subscription, no cloud, no compromise.",
+    url: BASE_URL,
     siteName: "Kubo Bot",
     images: [
       {
-        url: "/favicon.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Kubo Bot - Premium Desktop Companion",
+        alt: "Kubo Bot — Premium AI Desktop Companion Robot. Pre-order now at ₹2,999.",
+        type: "image/png",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
+    countryName: "India",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kubo Bot | AI Desktop Companion",
-    description: "The companion your desk has been waiting for.",
-    images: ["/favicon.png"],
+    title: "Kubo Bot | AI Desktop Companion Robot — Made in India",
+    description:
+      "The companion your desk has been waiting for. 100% offline AI, Pomodoro focus timer, 32hr battery. Pre-order Batch 01 — only 50 units.",
+    images: [{ url: "/og-image.png", alt: "Kubo Bot Robot" }],
     creator: "@thekubobot",
+    site: "@thekubobot",
   },
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
     apple: "/favicon.png",
+    shortcut: "/favicon.ico",
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
+  },
+  other: {
+    "google-site-verification": "de28423b46f5c3f6",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="m-0 p-0 text-base md:cursor-none">
+    <html lang="en-IN" suppressHydrationWarning className="m-0 p-0 text-base md:cursor-none relative">
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${syne.variable} font-[family-name:var(--font-inter)] min-h-screen flex flex-col items-center selection:bg-black/10 selection:text-[#1d1d1f] overflow-x-hidden md:cursor-none`}
+        className={`${inter.variable} ${syne.variable} font-[family-name:var(--font-inter)] min-h-screen flex flex-col items-center selection:bg-black/10 selection:text-[#1d1d1f] overflow-x-hidden md:cursor-none relative`}
       >
         <PreLoader />
         <CustomCursor />

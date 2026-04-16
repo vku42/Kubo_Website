@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
@@ -30,19 +30,25 @@ const steps = [
 
 export default function HowItWorks() {
   const targetRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const { scrollYProgress } = useScroll({ target: targetRef });
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.66%"]);
+  const lightX = useTransform(scrollYProgress, [0, 1], [-200, 200]);
 
   return (
     <section ref={targetRef} className="relative h-[300vh] w-full bg-transparent overflow-clip">
       {/* Visual Depth: Moving Light Leak */}
       <motion.div 
-        style={{ translateX: useTransform(scrollYProgress, [0, 1], [-200, 200]) }}
+        style={mounted ? { translateX: lightX } : { opacity: 0 }}
         className="fixed top-0 left-0 w-full h-screen bg-gradient-to-r from-transparent via-black/[0.02] pointer-events-none z-0"
       />
 
       <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
-        <motion.div style={{ x }} className="flex w-[300vw] h-full items-center">
+        <motion.div style={mounted ? { x } : {}} className="flex w-[300vw] h-full items-center">
           {steps.map((step, i) => (
             <div key={i} className="w-screen h-full flex flex-col items-center justify-center px-6 md:px-24 pt-20 md:pt-32 pb-12 relative">
               <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-12 md:gap-24">

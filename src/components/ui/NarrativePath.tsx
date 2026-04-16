@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 export default function NarrativePath() {
   const { scrollYProgress } = useScroll();
   const [docHeight, setDocHeight] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const updateHeight = () => setDocHeight(document.documentElement.scrollHeight);
     updateHeight();
     window.addEventListener("resize", updateHeight);
@@ -22,7 +24,7 @@ export default function NarrativePath() {
   const opacity = useTransform(scrollYProgress, [0, 0.05, 0.95, 1], [1, 1, 1, 1]); // Keep visible for now
   const tipOffset = useTransform(pathLength, [0, 1], ["0%", "100%"]);
 
-  if (docHeight === 0) return null;
+  if (!mounted || docHeight === 0) return null;
 
   const pathD = `M 100 200 
              C 400 600, 800 800, 200 1500 

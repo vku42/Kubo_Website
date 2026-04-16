@@ -1,12 +1,26 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 
-export default function CelestialBackground() {
-  const containerRef = useRef<HTMLDivElement>(null);
+export default function CelestialBackground({ targetRef }: { targetRef?: React.RefObject<HTMLDivElement | HTMLElement | null> }) {
+  const internalRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const stars = useMemo(() => {
+    return [...Array(30)].map((_, i) => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      duration: 3 + Math.random() * 2,
+    }));
+  }, []);
+
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: targetRef || internalRef,
     offset: ["start end", "end start"]
   });
 
@@ -20,46 +34,42 @@ export default function CelestialBackground() {
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1.2, 0.8]);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+    <div ref={internalRef} className="absolute inset-0 overflow-hidden pointer-events-none z-0">
       {/* Stars Layer */}
       <div className="absolute inset-0 opacity-20">
-        {[...Array(30)].map((_, i) => (
+        {mounted && stars.map((star, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-white rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: star.left,
+              top: star.top,
             }}
             animate={{ opacity: [0.2, 0.8, 0.2] }}
-            transition={{ duration: 3 + Math.random() * 2, repeat: Infinity }}
+            transition={{ duration: star.duration, repeat: Infinity }}
           />
         ))}
       </div>
 
       {/* The Sun / Moon Transit */}
       <motion.div
-        style={{ left: x, top: y, opacity, scale }}
+        style={mounted ? { left: x, top: y, opacity, scale } : { opacity: 0 }}
         className="absolute w-24 h-24 md:w-32 md:h-32"
       >
         {/* Glow */}
-        <div className="absolute inset-0 bg-white/10 blur-[60px] rounded-full" />
+        <div className="absolute inset-0 bg-white/5 blur-[50px] rounded-full" />
         
         {/* Core Body */}
-        <div className="absolute inset-0 bg-white/80 rounded-full shadow-[0_0_40px_rgba(255,255,255,0.2)] flex items-center justify-center">
+        <div className="absolute inset-0 bg-white/90 rounded-full shadow-[inset_-10px_-10px_20px_rgba(0,0,0,0.1)] flex items-center justify-center overflow-hidden">
+            {/* Lunar Craters (Stylized) */}
+            <div className="absolute top-[20%] left-[30%] w-[15%] h-[15%] bg-black/[0.03] rounded-full" />
+            <div className="absolute top-[50%] left-[15%] w-[25%] h-[25%] bg-black/[0.05] rounded-full" />
+            <div className="absolute top-[60%] left-[60%] w-[20%] h-[20%] bg-black/[0.04] rounded-full" />
+            
             {/* Inner details for "Tech Moon" look */}
-            <div className="w-[70%] h-[70%] border border-black/10 rounded-full" />
-            <div className="w-[40%] h-[40%] border border-black/20 rounded-full" />
+            <div className="w-[85%] h-[85%] border border-black/[0.03] rounded-full" />
+            <div className="w-[50%] h-[50%] border border-black/[0.05] rounded-full" />
         </div>
-
-        {/* Rays / Aura */}
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute top-1/2 left-1/2 w-full h-[1px] bg-white/20 origin-left"
-            style={{ transform: `rotate(${i * 45}deg) translateX(50%)` }}
-          />
-        ))}
       </motion.div>
     </div>
   );

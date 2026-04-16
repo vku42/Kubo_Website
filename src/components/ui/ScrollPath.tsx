@@ -1,8 +1,12 @@
-"use client";
-
+import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 
 export default function ScrollPath() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const { scrollYProgress } = useScroll();
   
   // Smooth out the progress bar for a high-end feel
@@ -11,6 +15,8 @@ export default function ScrollPath() {
     damping: 30,
     restDelta: 0.001
   });
+
+  if (!mounted) return null;
 
   return (
     <div className="fixed left-4 md:left-12 top-0 bottom-0 w-[1px] bg-black/5 z-[40] pointer-events-none">

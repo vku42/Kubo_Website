@@ -66,8 +66,22 @@ body::before {
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 32px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255,255,255,0.8);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255,255,255,0.9);
+  transform: translateY(-2px);
+}
+
+@utility section-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #86868b;
+  margin-bottom: 1.5rem;
 }
 
 @utility text-balance {
@@ -77,12 +91,33 @@ body::before {
 /* Swiss Typography Support */
 @layer base {
   h1, .h1 {
-    @apply text-5xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter leading-[0.85];
+    @apply text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter leading-[0.85];
   }
   h2, .h2 {
-    @apply text-4xl md:text-6xl lg:text-[6.5rem] font-bold tracking-tighter leading-[0.95];
+    @apply text-3xl sm:text-5xl md:text-6xl lg:text-[6.5rem] font-bold tracking-tighter leading-[0.95];
   }
   h3, .h3 {
-    @apply text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight;
+    @apply text-xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight;
   }
+}
+
+/* ─── Premium Keyframe Animations ──────────────────────────────────────────── */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; box-shadow: 0 0 0 0 rgba(29, 29, 31, 0.1); }
+  50% { opacity: 1; box-shadow: 0 0 0 8px rgba(29, 29, 31, 0); }
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
