@@ -1,7 +1,7 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Hardcoded for testing since this is a local scratch script
-const API_KEY = "AIzaSyDU4w9AuwH0LBZdtcXYLLz9N6a7EDaQ2KU";
+// Use environment variable for security
+const API_KEY = process.env.GOOGLE_GEMINI_API_KEY || "";
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 async function listModels() {
