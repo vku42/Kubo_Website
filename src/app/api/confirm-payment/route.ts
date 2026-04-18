@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
         await resend.emails.send({
           from: "Kubo Bot <orders@kubobot.com>",
           to: order.customerEmail,
-          reply_to: "hello@kubobot.com",
+          replyTo: "hello@kubobot.com",
           subject: `Order Reserved: Your Kubo Bot (Order #${order._id.slice(-6).toUpperCase()})`,
           html: `
             <div style="background-color: #fbfbfd; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 40px 20px;">
