@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 export default function useCurrency() {
-  const [price, setPrice] = useState("₹2,999");
+  const [price, setPrice] = useState("₹2,499");
   const [shipping, setShipping] = useState("Free Delivery in India");
 
   useEffect(() => {
