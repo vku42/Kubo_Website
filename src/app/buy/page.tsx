@@ -201,18 +201,35 @@ export default function BuyPage() {
               loading="eager"
             />
           </motion.div>
-          <div className="grid grid-cols-2 gap-3 md:gap-4">
-            <div className="w-full aspect-square relative rounded-2xl md:rounded-[2rem] overflow-hidden glass-panel border border-white/40">
+          <div className="grid grid-cols-3 gap-3 md:gap-4">
+            <div className="w-full aspect-square relative rounded-xl md:rounded-2xl overflow-hidden glass-panel border border-white/40">
               <Image 
                 src="/Photos/img2.jpg" 
                 alt="Kubo Bot Detail" 
                 fill 
-                sizes="(max-width: 768px) 50vw, 25vw"
+                sizes="(max-width: 768px) 33vw, 15vw"
                 className="object-cover" 
               />
             </div>
-            <div className="w-full aspect-square relative rounded-2xl md:rounded-[2rem] overflow-hidden glass-panel bg-black/5 flex items-center justify-center border border-black/10 px-4">
-              <p className="font-bold text-black/40 tracking-widest text-[9px] md:text-[10px] uppercase text-center leading-relaxed">Limited Edition <br/>Batch 01</p>
+            <div className="w-full aspect-square relative rounded-xl md:rounded-2xl overflow-hidden glass-panel border border-white/40 bg-black">
+              <video 
+                src="/videos/v1.mp4" 
+                className="w-full h-full object-cover"
+                autoPlay 
+                muted 
+                loop 
+                playsInline
+              />
+            </div>
+            <div className="w-full aspect-square relative rounded-xl md:rounded-2xl overflow-hidden glass-panel border border-white/40 bg-black">
+              <video 
+                src="/videos/v2.mp4" 
+                className="w-full h-full object-cover"
+                autoPlay 
+                muted 
+                loop 
+                playsInline
+              />
             </div>
           </div>
         </div>
