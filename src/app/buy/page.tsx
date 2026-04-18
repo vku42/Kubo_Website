@@ -186,7 +186,7 @@ export default function BuyPage() {
     src: "/Photos/img1.jpg" 
   });
 
-  const assets = [
+  const assets: { type: "image" | "video", src: string }[] = [
     { type: "image", src: "/Photos/img1.jpg" },
     { type: "image", src: "/Photos/img2.jpg" },
     { type: "video", src: "/videos/v1.mp4" },
