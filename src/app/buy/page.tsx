@@ -216,7 +216,7 @@ export default function BuyPage() {
             ) : (
               <video 
                 src={selectedAsset.src} 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-bottom object-cover"
                 autoPlay 
                 muted 
                 loop 
@@ -246,7 +246,7 @@ export default function BuyPage() {
                   <div className="w-full h-full bg-black relative">
                     <video 
                       src={asset.src} 
-                      className="w-full h-full object-cover opacity-80"
+                      className="w-full h-full object-bottom object-cover opacity-80"
                       muted 
                       playsInline
                     />
