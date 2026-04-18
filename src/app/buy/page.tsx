@@ -181,56 +181,84 @@ export default function BuyPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const [selectedAsset, setSelectedAsset] = useState<{ type: "image" | "video", src: string }>({ 
+    type: "image", 
+    src: "/Photos/img1.jpg" 
+  });
+
+  const assets = [
+    { type: "image", src: "/Photos/img1.jpg" },
+    { type: "image", src: "/Photos/img2.jpg" },
+    { type: "video", src: "/videos/v1.mp4" },
+    { type: "video", src: "/videos/v2.mp4" },
+  ];
+
   return (
     <div className="w-full max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-24">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         {/* Left: Product Gallery */}
         <div className="flex flex-col gap-3 md:gap-4">
           <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="w-full aspect-square relative rounded-[2rem] md:rounded-[3rem] overflow-hidden glass-panel border border-white/40 shadow-[0_32px_80px_rgba(0,0,0,0.06)]"
+            key={selectedAsset.src}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="w-full aspect-square relative rounded-[2rem] md:rounded-[3rem] overflow-hidden glass-panel border border-white/40 shadow-[0_32px_80px_rgba(0,0,0,0.06)] bg-black"
           >
-            <Image 
-              src="/Photos/img1.jpg" 
-              alt="Kubo Bot Main" 
-              fill 
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover" 
-              priority 
-              loading="eager"
-            />
-          </motion.div>
-          <div className="grid grid-cols-3 gap-3 md:gap-4">
-            <div className="w-full aspect-square relative rounded-xl md:rounded-2xl overflow-hidden glass-panel border border-white/40">
+            {selectedAsset.type === "image" ? (
               <Image 
-                src="/Photos/img2.jpg" 
-                alt="Kubo Bot Detail" 
+                src={selectedAsset.src} 
+                alt="Kubo Bot Selected" 
                 fill 
-                sizes="(max-width: 768px) 33vw, 15vw"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover" 
+                priority 
               />
-            </div>
-            <div className="w-full aspect-square relative rounded-xl md:rounded-2xl overflow-hidden glass-panel border border-white/40 bg-black">
+            ) : (
               <video 
-                src="/videos/v1.mp4" 
+                src={selectedAsset.src} 
                 className="w-full h-full object-cover"
                 autoPlay 
                 muted 
                 loop 
                 playsInline
+                key={selectedAsset.src}
               />
-            </div>
-            <div className="w-full aspect-square relative rounded-xl md:rounded-2xl overflow-hidden glass-panel border border-white/40 bg-black">
-              <video 
-                src="/videos/v2.mp4" 
-                className="w-full h-full object-cover"
-                autoPlay 
-                muted 
-                loop 
-                playsInline
-              />
-            </div>
+            )}
+          </motion.div>
+          <div className="grid grid-cols-4 gap-2 md:gap-4">
+            {assets.map((asset, idx) => (
+              <button
+                key={idx}
+                onClick={() => setSelectedAsset(asset)}
+                className={`w-full aspect-square relative rounded-xl md:rounded-2xl overflow-hidden glass-panel border transition-all duration-300 ${
+                  selectedAsset.src === asset.src ? "border-orange-500 ring-2 ring-orange-500/20 scale-[0.98]" : "border-white/40 hover:border-black/20"
+                }`}
+              >
+                {asset.type === "image" ? (
+                  <Image 
+                    src={asset.src} 
+                    alt={`Thumbnail ${idx}`} 
+                    fill 
+                    sizes="100px"
+                    className="object-cover" 
+                  />
+                ) : (
+                  <div className="w-full h-full bg-black relative">
+                    <video 
+                      src={asset.src} 
+                      className="w-full h-full object-cover opacity-80"
+                      muted 
+                      playsInline
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-6 h-6 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center">
+                        <div className="w-0 h-0 border-t-[4px] border-t-transparent border-l-[6px] border-l-white border-b-[4px] border-b-transparent ml-0.5" />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </button>
+            ))}
           </div>
         </div>
 
