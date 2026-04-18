@@ -133,7 +133,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <h1 className="mb-4 md:mb-6">He’s not a tool. <br/> <span className="text-[#86868b]">He’s a witness.</span></h1>
+          <h1 className="mb-4 md:mb-6">He’s not a tool. <br/> <span className="text-[#515154]">He’s a witness.</span></h1>
 
           <p className="text-lg md:text-[2.25rem] leading-[1.15] text-[#86868b] max-w-2xl text-balance font-medium tracking-tighter mb-4 md:mb-6">
             Stop working alone. <br className="hidden md:block" />
