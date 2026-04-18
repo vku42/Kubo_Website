@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
@@ -25,6 +25,7 @@ export default function Hero() {
   const eyeY = useTransform(mouseY, [-0.5, 0.5], [-50, 50]);
 
   const [mounted, setMounted] = useState(false);
+  const [showDemo, setShowDemo] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -42,6 +43,49 @@ export default function Hero() {
       ref={ref}
       className="relative w-full min-h-[100vh] flex flex-col items-center justify-center overflow-hidden pt-36 md:pt-40"
     >
+      {/* Video Modal */}
+      <AnimatePresence>
+        {showDemo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
+          >
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/90 backdrop-blur-2xl"
+              onClick={() => setShowDemo(false)}
+            />
+            
+            <motion.div
+              initial={{ scale: 0.9, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.9, y: 20, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative w-full max-w-5xl aspect-video rounded-3xl overflow-hidden shadow-[0_0_100px_rgba(249,115,22,0.15)] bg-black border border-white/10"
+            >
+              <video 
+                src="/videos/demo.mp4" 
+                className="w-full h-full object-contain"
+                autoPlay 
+                controls
+                playsInline
+              />
+              
+              <button 
+                onClick={() => setShowDemo(false)}
+                className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all z-10"
+              >
+                <span className="text-2xl font-light">×</span>
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Background Lighting & "The Witness" Eye effect */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] bg-black/[0.02] rounded-full blur-[140px] opacity-40 pointer-events-none" />
       
@@ -87,14 +131,6 @@ export default function Hero() {
                 <span className="text-[8px] font-bold tracking-[0.1em] uppercase text-[#86868b]">47 / 50 Units Reserved</span>
               </div>
             </div>
-            
-            <div className="flex items-center gap-4 md:gap-6 opacity-40">
-              <span className="text-[8px] md:text-[9px] font-bold tracking-[0.2em] uppercase">ESP32-C3 Arch</span>
-              <div className="w-1 h-1 rounded-full bg-black/20" />
-              <span className="text-[8px] md:text-[9px] font-bold tracking-[0.2em] uppercase">1.3" OLED Pure</span>
-              <div className="w-1 h-1 rounded-full bg-black/20" />
-              <span className="text-[8px] md:text-[9px] font-bold tracking-[0.2em] uppercase">32h Standby</span>
-            </div>
           </div>
 
           <h1 className="mb-4 md:mb-6">He’s not a tool. <br/> <span className="text-[#86868b]">He’s a witness.</span></h1>
@@ -127,6 +163,7 @@ export default function Hero() {
               </motion.div>
 
               <motion.button
+                onClick={() => setShowDemo(true)}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.9 }}
@@ -135,7 +172,7 @@ export default function Hero() {
                 <div className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
                   <Play className="w-3 h-3 ml-0.5" />
                 </div>
-                <span>Watch 60s Demo</span>
+                <span>Watch Demo</span>
               </motion.button>
             </div>
             

@@ -10,7 +10,7 @@ export default function Specs() {
       icon: <Maximize className="w-5 h-5 text-[#1d1d1f]" />,
       items: [
         { label: "Precision Chassis", value: "50x50x50 mm" },
-        { label: "Static Mass", value: "320g" },
+        { label: "Weight", value: "150g" },
         { label: "Structural Polymer", value: "Organic PLA+" },
         { label: "Surface Finish", value: "Matte Slate / Pearl" },
       ]
@@ -19,7 +19,7 @@ export default function Specs() {
       category: "Intelligence Core",
       icon: <Cpu className="w-5 h-5 text-[#1d1d1f]" />,
       items: [
-        { label: "Compute Fabric", value: "ESP32-C3 RISC-V" },
+        { label: "Compute Fabric", value: "ESP32-C3" },
         { label: "Vision Logic", value: "Edge-Only (Offline)" },
         { label: "Display Interface", value: "1.3\" Pure-Black OLED" },
         { label: "Flash Fabric", value: "4 MB Onboard" },
@@ -41,8 +41,8 @@ export default function Specs() {
       items: [
         { label: "Energy Cell", value: "500 mAh Li-Ion" },
         { label: "Active Cycle", value: "5 Hours" },
-        { label: "Idling State", value: "32 Hours" },
-        { label: "Rapid Charge", value: "45 Mins to 100%" },
+        { label: "Idling State", value: "24 Hours" },
+        { label: "Rapid Charge", value: "45 Mins to 100%*" },
       ]
     }
   ];
@@ -98,6 +98,15 @@ export default function Specs() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-12 pt-8 border-t border-black/5"
+        >
+          <p className="text-[10px] text-[#86868b] font-bold uppercase tracking-widest">* Estimated charging time. Actual results may vary based on power source and environment.</p>
+        </motion.div>
       </div>
     </section>
   );

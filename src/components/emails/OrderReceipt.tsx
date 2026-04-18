@@ -80,7 +80,7 @@ export const OrderReceiptEmail: React.FC<OrderReceiptProps> = ({
     <hr style={{ border: 'none', borderTop: '1px solid #d2d2d7', margin: '40px 0' }} />
     
     <p style={{ fontSize: '12px', color: '#86868b', textAlign: 'center' }}>
-      © {new Date().getFullYear()} Kubo Bot Infotech. All rights reserved.<br />
+      © {new Date().getFullYear()} Vehon Infotech. All rights reserved.<br />
       This is an automated pre-order confirmation.
     </p>
   </div>

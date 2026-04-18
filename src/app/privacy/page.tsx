@@ -68,7 +68,7 @@ export default function PrivacyPage() {
               <h2 className="text-2xl font-bold tracking-tight text-[#1d1d1f]">3. Data Sharing</h2>
             </div>
             <p className="text-[#86868b] leading-relaxed font-medium text-lg">
-              We will never sell, lease, or distribute your personal information to third parties. Your data is only used by Kubo Robotics and our essential shipping partners solely to deliver your pre-order.
+              We will never sell, lease, or distribute your personal information to third parties. Your data is only used by Vehon Infotech and our essential shipping partners solely to deliver your pre-order.
             </p>
           </section>
 

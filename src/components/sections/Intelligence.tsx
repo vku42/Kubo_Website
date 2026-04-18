@@ -36,10 +36,10 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
 }
 
 const SPECS = [
-  { label: "Computing Fabric", displayValue: "ESP32-C3 RISC-V", numericValue: null },
+  { label: "Computing Fabric", displayValue: "ESP32-C3", numericValue: null },
   { label: "Local Intelligence", displayValue: null, numericValue: 100, suffix: "%" },
   { label: "Tactile Response", displayValue: "Kinetic Nudge", numericValue: null },
-  { label: "Active Endurance", displayValue: null, numericValue: 32, suffix: "hr" },
+  { label: "Active Endurance", displayValue: null, numericValue: 24, suffix: "hr" },
 ];
 
 // CSS-only neural network SVG nodes
@@ -148,7 +148,7 @@ export default function Intelligence() {
               transition={{ delay: i * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className="p-5 md:p-10 rounded-[2rem] md:rounded-[2.5rem] bg-white/[0.02] border border-white/5 backdrop-blur-xl flex flex-col items-center md:items-start hover:bg-white/[0.05] hover:border-white/10 transition-all duration-500 group"
             >
-              <span className="text-white/30 font-bold text-[9px] md:text-[10px] uppercase tracking-[0.2em] mb-3 md:mb-4 group-hover:text-white/50 transition-colors">{spec.label}</span>
+              <span className="text-[#86868b] font-bold text-[9px] md:text-[10px] uppercase tracking-[0.2em] mb-3 md:mb-4 group-hover:text-white/50 transition-colors">{spec.label}</span>
               <span className="text-white font-bold text-xl md:text-3xl tracking-tight leading-none text-center md:text-left">
                 {spec.numericValue !== null ? (
                   <AnimatedCounter value={spec.numericValue} suffix={spec.suffix} />

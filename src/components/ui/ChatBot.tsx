@@ -251,7 +251,7 @@ export default function ChatBot() {
               exit={{ rotate: -90, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <Sparkles className="w-6 h-6 text-white" />
+              <span className="text-2xl font-black text-white tracking-tighter leading-none pb-1">k.</span>
             </motion.div>
           )}
         </AnimatePresence>

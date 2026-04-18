@@ -43,19 +43,16 @@ export default function FocusShowcase() {
               transition={{ delay: i * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className="bg-white/[0.03] backdrop-blur-3xl border border-white/5 rounded-[3rem] p-10 flex flex-col items-center group hover:bg-white/[0.06] hover:border-white/10 transition-all duration-500"
             >
-              <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 group-hover:scale-110 group-hover:border-amberMain/20 transition-all duration-500">
-                <span className="text-2xl font-bold text-amberMain tracking-tighter">{p.code}</span>
+              <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 group-hover:scale-110 group-hover:border-white/20 transition-all duration-500">
+                <span className="text-2xl font-bold text-[#86868b] tracking-tighter">{p.code}</span>
               </div>
               <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">{p.name}</h3>
-              <div className="flex items-center gap-2 mb-10 uppercase text-[10px] font-bold tracking-[0.2em] text-white/30">
+              <div className="flex items-center gap-2 mb-10 uppercase text-[10px] font-bold tracking-[0.2em] text-[#86868b]">
                 <Timer className="w-3 h-3" />
                 {p.focus} Sprint
               </div>
               
-              <div className="w-full bg-white/5 rounded-[2rem] p-8 border border-white/5 text-center mt-auto">
-                 <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.3em] mb-4 block">AIDA Neural Coach</span>
-                 <p className="text-white font-medium italic tracking-tight text-lg text-balance leading-tight">"{p.coach}"</p>
-              </div>
+
             </motion.div>
           ))}
         </div>

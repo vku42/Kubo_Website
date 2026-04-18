@@ -106,3 +106,9 @@ export const updateStatus = mutation({
     }
   },
 });
+export const getOrderById = query({
+  args: { orderId: v.id("orders") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.orderId);
+  },
+});

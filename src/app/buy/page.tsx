@@ -18,7 +18,7 @@ const faqs = [
 ];
 
 const MERCHANT_UPI = "s3969685224338903@slc";
-const MERCHANT_NAME = "Kubo Bot";
+const MERCHANT_NAME = "Vehon Infotech";
 const PRODUCT_AMOUNT = "2999";
 
 export default function BuyPage() {
@@ -147,6 +147,19 @@ export default function BuyPage() {
           orderId: targetOrderId as any,
           proofUrl: url
         });
+
+        // 📧 Trigger Confirmation Email only after proof is attached
+        try {
+          await fetch("/api/confirm-payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ orderId: targetOrderId })
+          });
+        } catch (emailErr) {
+          console.error("Failed to trigger confirmation email:", emailErr);
+          // We don't block the user if the email fails, they've already uploaded the proof
+        }
+
         setProofUploaded(true);
         console.log("Proof attached successfully. Redirecting...");
         

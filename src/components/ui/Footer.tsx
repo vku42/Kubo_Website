@@ -116,7 +116,7 @@ export default function Footer() {
       <div className="w-full max-w-5xl px-6 flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-black/5">
         <span className="font-bold text-xl tracking-tighter text-[#1d1d1f]">Kubo.</span>
         <span className="text-sm text-[#86868b] font-medium text-center">
-          © {new Date().getFullYear()} Kubo Robotics. All rights reserved. · Built with ❤️ in India 🇮🇳
+          © {new Date().getFullYear()} Vehon Infotech. All rights reserved. · Built with ❤️ in India 🇮🇳
         </span>
         <BackToTop />
       </div>

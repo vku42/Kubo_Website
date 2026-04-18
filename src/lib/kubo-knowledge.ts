@@ -14,12 +14,12 @@ It runs 100% locally — no cloud, no subscriptions, complete privacy.
 It has emotional AI that reacts to your presence, time of day, and season.
 It helps with focus using built-in Pomodoro timers.
 It is made from Organic PLA+ material with a Matte Slate or Pearl finish.
-Weight: 320g. USB-C charging.
+Weight: 150g. USB-C charging.
 
 === SPECIFICATIONS ===
 - Chip: Xiao ESP32-C3 (Seeed Studio)
 - Display: 1.3" OLED (128x64, SSD1306)
-- Battery: 500mAh Li-ion, ~5hr active / 32hr standby
+- Battery: 500mAh Li-ion, ~5hr active / 24hr standby
 - Charge Time: ~45 minutes to full
 - Connectivity: Wi-Fi 2.4GHz (802.11 b/g/n), Bluetooth 5.0
 - Port: USB-C
@@ -27,6 +27,7 @@ Weight: 320g. USB-C charging.
 - Flash: 4MB onboard
 - Dimensions: 50 × 50 × 50 mm cube
 - Material: Organic PLA+ (eco-friendly 3D printed)
+- Weight: 150g
 - Finishes: Matte Slate / Pearl White
 
 === PRICING & AVAILABILITY ===

@@ -40,7 +40,7 @@ export default function Home() {
     },
     material: "Organic PLA+",
     color: "Matte Slate / Pearl White",
-    weight: "320g",
+    weight: "150g",
     depth: { "@type": "QuantitativeValue", value: 50, unitCode: "MMT" },
     width: { "@type": "QuantitativeValue", value: 50, unitCode: "MMT" },
     height: { "@type": "QuantitativeValue", value: 50, unitCode: "MMT" },
