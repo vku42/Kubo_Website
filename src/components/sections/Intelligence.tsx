@@ -36,10 +36,10 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
 }
 
 const SPECS = [
-  { label: "Fabric", displayValue: "ESP-32 C3", numericValue: null },
-  { label: "Offline", displayValue: null, numericValue: 100, suffix: "%" },
-  { label: "Haptics", displayValue: "Kinetic Nudge", numericValue: null },
-  { label: "Standby", displayValue: null, numericValue: 32, suffix: "hr" },
+  { label: "Computing Fabric", displayValue: "ESP32-C3 RISC-V", numericValue: null },
+  { label: "Local Intelligence", displayValue: null, numericValue: 100, suffix: "%" },
+  { label: "Tactile Response", displayValue: "Kinetic Nudge", numericValue: null },
+  { label: "Active Endurance", displayValue: null, numericValue: 32, suffix: "hr" },
 ];
 
 // CSS-only neural network SVG nodes

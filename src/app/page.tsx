@@ -6,7 +6,6 @@ import HowItWorks from "@/components/sections/HowItWorks";
 import Testimonials from "@/components/sections/Testimonials";
 import Specs from "@/components/sections/Specs";
 import BuyCTA from "@/components/sections/BuyCTA";
-import HardwareLockedTrust from "@/components/sections/HardwareLockedTrust";
 import KubosMoods from "@/components/sections/KubosMoods";
 import { FAQ_ITEMS } from "@/lib/kubo-knowledge";
 
@@ -189,7 +188,6 @@ export default function Home() {
 
       <Hero />
       <Features />
-      <HardwareLockedTrust />
       <Intelligence />
       <KubosMoods />
       <FocusShowcase />

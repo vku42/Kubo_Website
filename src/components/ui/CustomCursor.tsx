@@ -35,12 +35,23 @@ export default function CustomCursor() {
   if (!isVisible) return null;
 
   return (
-    <motion.div
-      style={{
-        translateX: smoothX,
-        translateY: smoothY,
-      }}
-      className="fixed top-0 left-0 w-5 h-5 bg-white rounded-full pointer-events-none z-[99999] mix-blend-difference"
-    />
+    <>
+      <motion.div
+        style={{
+          translateX: smoothX,
+          translateY: smoothY,
+        }}
+        className="fixed top-0 left-0 w-8 h-8 border border-black/20 rounded-xl pointer-events-none z-[99999] flex items-center justify-center"
+      >
+        <div className="w-1 h-1 bg-black rounded-full" />
+      </motion.div>
+      <motion.div
+        style={{
+          translateX: cursorX,
+          translateY: cursorY,
+        }}
+        className="fixed top-0 left-0 w-2 h-2 bg-orange-500 rounded-full pointer-events-none z-[99999] blur-[2px] opacity-50"
+      />
+    </>
   );
 }

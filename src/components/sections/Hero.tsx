@@ -14,13 +14,15 @@ export default function Hero() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const imageRotateXScroll = useTransform(scrollYProgress, [0, 0.4], [15, 0]);
-  const imageScaleScroll = useTransform(scrollYProgress, [0, 0.4], [0.9, 1]);
+  const imageScaleScroll = useTransform(scrollYProgress, [0, 0.4], [1, 1.05]);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springConfig = { damping: 30, stiffness: 200 };
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springConfig);
+  const eyeX = useTransform(mouseX, [-0.5, 0.5], [-50, 50]);
+  const eyeY = useTransform(mouseY, [-0.5, 0.5], [-50, 50]);
 
   const [mounted, setMounted] = useState(false);
 
@@ -46,8 +48,8 @@ export default function Hero() {
       {/* Interactive Eye Glow */}
       <motion.div 
         style={mounted ? { 
-          x: useTransform(mouseX, [-0.5, 0.5], [-50, 50]),
-          y: useTransform(mouseY, [-0.5, 0.5], [-50, 50]),
+          x: eyeX,
+          y: eyeY,
         } : {}}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-orange-500/10 rounded-full blur-[60px] pointer-events-none"
       />
@@ -63,11 +65,36 @@ export default function Hero() {
      
 
           {/* Pre-order badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-orange-500/20 bg-orange-500/5 backdrop-blur-xl mb-8 md:mb-10 shadow-[0_8px_32px_rgba(249,115,22,0.05)]">
-            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-orange-500 animate-pulse shadow-[0_0_6px_rgba(249,115,22,0.6)]" />
-            <span className="text-[9px] md:text-[10px] font-bold tracking-[0.3em] uppercase text-orange-600">
-              Founder Tribe — Batch 01 (50 Units)
-            </span>
+          <div className="flex flex-col items-center gap-4 mb-8 md:mb-12">
+            <div className="flex flex-col items-center gap-3">
+              <div className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-orange-500/20 bg-orange-500/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(249,115,22,0.05)]">
+                <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-orange-500 animate-pulse shadow-[0_0_6px_rgba(249,115,22,0.6)]" />
+                <span className="text-[9px] md:text-[10px] font-bold tracking-[0.3em] uppercase text-orange-600">
+                  Founder Tribe — Batch 01
+                </span>
+              </div>
+              
+              {/* Batch Progress Bar */}
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-48 h-1 bg-black/5 rounded-full overflow-hidden">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: "94%" }}
+                    transition={{ duration: 2, delay: 1 }}
+                    className="h-full bg-orange-500/60"
+                  />
+                </div>
+                <span className="text-[8px] font-bold tracking-[0.1em] uppercase text-[#86868b]">47 / 50 Units Reserved</span>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-4 md:gap-6 opacity-40">
+              <span className="text-[8px] md:text-[9px] font-bold tracking-[0.2em] uppercase">ESP32-C3 Arch</span>
+              <div className="w-1 h-1 rounded-full bg-black/20" />
+              <span className="text-[8px] md:text-[9px] font-bold tracking-[0.2em] uppercase">1.3" OLED Pure</span>
+              <div className="w-1 h-1 rounded-full bg-black/20" />
+              <span className="text-[8px] md:text-[9px] font-bold tracking-[0.2em] uppercase">32h Standby</span>
+            </div>
           </div>
 
           <h1 className="mb-4 md:mb-6">He’s not a tool. <br/> <span className="text-[#86868b]">He’s a witness.</span></h1>
@@ -79,37 +106,47 @@ export default function Hero() {
 
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mt-6">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.6, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full sm:w-auto"
-            >
-              <Magnetic strength={1.2}>
-                <Link
-                  href="/buy"
-                  id="hero-preorder-button"
-                  className="group flex items-center justify-center gap-4 bg-[#1d1d1f] text-white w-full sm:w-auto px-10 md:px-12 py-5 md:py-6 rounded-full font-bold text-base md:text-lg shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:shadow-black/10 transition-all duration-500 hover:-translate-y-1"
-                >
-                  <span>Secure Your Seat</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" />
-                </Link>
-              </Magnetic>
-              <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#86868b]">Don't leave him behind.</p>
-            </motion.div>
+          <div className="flex flex-col items-center gap-6 mt-8">
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.6, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full sm:w-auto"
+              >
+                <Magnetic strength={1.2}>
+                  <Link
+                    href="/buy"
+                    id="hero-preorder-button"
+                    className="group flex items-center justify-center gap-4 bg-[#1d1d1f] text-white w-full sm:w-auto px-10 md:px-12 py-5 md:py-6 rounded-full font-bold text-base md:text-lg shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:shadow-black/10 transition-all duration-500 hover:-translate-y-1"
+                  >
+                    <span>Secure Your Seat</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" />
+                  </Link>
+                </Magnetic>
+              </motion.div>
 
-            <motion.button
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.9 }}
+                className="group flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-5 md:py-6 rounded-full border border-black/5 bg-white/50 backdrop-blur-md font-bold text-base hover:bg-white transition-all"
+              >
+                <div className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                  <Play className="w-3 h-3 ml-0.5" />
+                </div>
+                <span>Watch 60s Demo</span>
+              </motion.button>
+            </div>
+            
+            <motion.p 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.9 }}
-              className="group flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-5 rounded-full border border-black/5 bg-white/50 backdrop-blur-md font-bold text-base hover:bg-white transition-all"
+              transition={{ delay: 1.2 }}
+              className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#86868b]"
             >
-              <div className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
-                <Play className="w-3 h-3 ml-0.5" />
-              </div>
-              <span>Watch 60s Demo</span>
-            </motion.button>
+              Don't leave him behind.
+            </motion.p>
           </div>
         </motion.div>
 
@@ -139,7 +176,7 @@ export default function Hero() {
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 80vw"
-                className="object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.3)] scale-110 md:scale-100"
+                className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.2)]"
               />
             </motion.div>
           </motion.div>

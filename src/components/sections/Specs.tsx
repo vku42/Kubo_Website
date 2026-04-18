@@ -9,19 +9,19 @@ export default function Specs() {
       category: "Dimensions & Build",
       icon: <Maximize className="w-5 h-5 text-[#1d1d1f]" />,
       items: [
-        { label: "Precision Case", value: "50x50x50 mm" },
-        { label: "Net Weight", value: "320g" },
-        { label: "Structural Material", value: "Organic PLA+" },
-        { label: "Finish", value: "Matte Slate / Pearl" },
+        { label: "Precision Chassis", value: "50x50x50 mm" },
+        { label: "Static Mass", value: "320g" },
+        { label: "Structural Polymer", value: "Organic PLA+" },
+        { label: "Surface Finish", value: "Matte Slate / Pearl" },
       ]
     },
     {
       category: "Intelligence Core",
       icon: <Cpu className="w-5 h-5 text-[#1d1d1f]" />,
       items: [
-        { label: "Neural Engine", value: "Xiao ESP32 C3" },
-        { label: "Vision Processing", value: "Edge-only" },
-        { label: "Interface", value: "1.3\" Deep OLED" },
+        { label: "Compute Fabric", value: "ESP32-C3 RISC-V" },
+        { label: "Vision Logic", value: "Edge-Only (Offline)" },
+        { label: "Display Interface", value: "1.3\" Pure-Black OLED" },
         { label: "Flash Fabric", value: "4 MB Onboard" },
       ]
     },
@@ -29,17 +29,17 @@ export default function Specs() {
       category: "Connectivity",
       icon: <Wifi className="w-5 h-5 text-[#1d1d1f]" />,
       items: [
-        { label: "Banded Wi-Fi", value: "2.4GHz / 802.11" },
-        { label: "Sync Protocol", value: "Bluetooth 5.0" },
-        { label: "Interface Port", value: "USB-C High Speed" },
-        { label: "OS Support", value: "iOS 16+ / Android 13+" },
+        { label: "Update Protocol", value: "2.4GHz / 802.11" },
+        { label: "Sync Interface", value: "Bluetooth 5.0" },
+        { label: "Charging Port", value: "USB-C High Speed" },
+        { label: "Companion App", value: "iOS / Android" },
       ]
     },
     {
       category: "Power Profile",
       icon: <Battery className="w-5 h-5 text-[#1d1d1f]" />,
       items: [
-        { label: "Energy Cell", value: "500 mAh" },
+        { label: "Energy Cell", value: "500 mAh Li-Ion" },
         { label: "Active Cycle", value: "5 Hours" },
         { label: "Idling State", value: "32 Hours" },
         { label: "Rapid Charge", value: "45 Mins to 100%" },
