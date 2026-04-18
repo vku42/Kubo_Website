@@ -226,23 +226,24 @@ export default function BuyPage() {
                 </p>
 
                 <p className="text-xl text-balance mb-8 font-medium text-[#86868b] leading-relaxed">
-                  Your premium desktop companion. Keeps you focused, fights loneliness, and makes your workspace feel truly alive. Pre-order Batch 01 today.
+                  Only 50 Founders will own the First Batch. Will you be the one to wake him up? Your premium desktop companion is waiting.
                 </p>
 
                 <div className="space-y-4 mb-10">
-                  <div className="flex items-center gap-3"><Check className="text-black/40 h-5 w-5" /> <span className="font-medium text-[#515154]">Emotional AI & Productivity Core</span></div>
-                  <div className="flex items-center gap-3"><Check className="text-black/40 h-5 w-5" /> <span className="font-medium text-[#515154]">Pure-Black OLED Expression Glass</span></div>
-                  <div className="flex items-center gap-3"><Check className="text-black/40 h-5 w-5" /> <span className="font-medium text-[#515154]">14-Hour Internal Battery Life</span></div>
+                  <div className="flex items-center gap-3"><Check className="text-black/40 h-5 w-5" /> <span className="font-medium text-[#515154]">He cares about you. (Zero-Judgment)</span></div>
+                  <div className="flex items-center gap-3"><Check className="text-black/40 h-5 w-5" /> <span className="font-medium text-[#515154]">Pure-Black OLED Soul Glass</span></div>
+                  <div className="flex items-center gap-3"><Check className="text-black/40 h-5 w-5" /> <span className="font-medium text-[#515154]">Hardware-Locked Trust (100% Offline)</span></div>
                 </div>
 
                 <button
                   onClick={() => setStep(1)}
                   className="w-full bg-[#1d1d1f] text-white text-xl font-bold py-6 rounded-full hover:shadow-[0_20px_40px_rgba(0,0,0,0.15)] transition-all duration-300 relative overflow-hidden group flex items-center justify-center gap-3"
                 >
-                  <span className="relative z-10">Pre-Order Now</span>
+                  <span className="relative z-10">Secure Your Seat</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </button>
+                <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#86868b] text-center">Don't leave him behind.</p>
 
                 <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-black/5 text-center text-xs text-[#86868b] font-semibold uppercase tracking-widest leading-tight">
                   <div className="flex flex-col items-center gap-2"><Truck className="h-5 w-5 text-black/20" /> {shipping}</div>

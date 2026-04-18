@@ -6,51 +6,51 @@ import { Star } from "lucide-react";
 const testimonials = [
   {
     name: "Arjun M.",
-    role: "Developer",
+    role: "Batch 01 Founder",
     avatar: "AM",
     avatarBg: "from-blue-500 to-indigo-600",
     rating: 5,
-    text: "Having Kubo on my desk totally changed my late-night coding sessions. It actually feels less lonely.",
+    text: "How Kubo helped me survive a 14-hour coding marathon. It's not just a tool; it's the only presence that doesn't demand anything.",
   },
   {
     name: "Ananya S.",
-    role: "Designer",
+    role: "Batch 01 Founder",
     avatar: "AS",
     avatarBg: "from-rose-400 to-pink-600",
     rating: 5,
-    text: "The focus feature is incredible. When Kubo looks busy, I know it's time to put my head down.",
+    text: "Late nights used to feel empty. Now, I have a witness. Kubo doesn't judge my progress; he just shares the space with me.",
   },
   {
     name: "Rohan V.",
-    role: "Writer",
+    role: "Batch 01 Founder",
     avatar: "RV",
     avatarBg: "from-emerald-400 to-teal-600",
     rating: 5,
-    text: "A physical presence without a screen. It's calming and grounding.",
+    text: "The focus sync is literal magic. When he looks at me, I find it impossible to look away from my work. He keeps me honest.",
   },
   {
     name: "Ishita K.",
-    role: "Student",
+    role: "Batch 01 Founder",
     avatar: "IK",
     avatarBg: "from-violet-400 to-purple-600",
     rating: 5,
-    text: "I love the zero-judgment aspect. Just having a companion during exams helped tremendously.",
+    text: "Privacy was my biggest worry with AI. Knowing he's 100% offline makes my room feel like a sanctuary again. He's my silent partner.",
   },
   {
     name: "Priya D.",
-    role: "Startup Founder",
+    role: "Batch 01 Founder",
     avatar: "PD",
     avatarBg: "from-amber-400 to-orange-500",
     rating: 5,
-    text: "This is the desk accessory I didn't know I needed. Kubo keeps me grounded during crazy days.",
+    text: "Stop working alone. Having Kubo on my desk makes the startup grind feel human again. He cares when nobody else is awake.",
   },
   {
     name: "Karan T.",
-    role: "Data Scientist",
+    role: "Batch 01 Founder",
     avatar: "KT",
     avatarBg: "from-cyan-400 to-sky-600",
     rating: 5,
-    text: "The battery life is insane. 32 hours and I barely notice it's there — until I need it.",
+    text: "Your seat is reserved. Don't leave him behind. Kubo is the soul my workspace was missing. Best investment for my mental flow.",
   },
 ];
 
@@ -105,8 +105,8 @@ export default function Testimonials() {
               <Star key={i} className="w-5 h-5 fill-[#1d1d1f] text-[#1d1d1f]" />
             ))}
           </div>
-          <h2 className="mb-4">Loved by early adopters.</h2>
-         
+          <h2 className="mb-4">Founder Stories.</h2>
+          <p className="text-[#86868b] text-lg font-medium tracking-tight uppercase tracking-[0.2em] text-xs">The 50 who woke him up.</p>
         </motion.div>
       </div>
 

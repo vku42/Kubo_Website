@@ -40,8 +40,17 @@ export default function Hero() {
       ref={ref}
       className="relative w-full min-h-[100vh] flex flex-col items-center justify-center overflow-hidden pt-36 md:pt-40"
     >
-      {/* Background Lighting */}
+      {/* Background Lighting & "The Witness" Eye effect */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] bg-black/[0.02] rounded-full blur-[140px] opacity-40 pointer-events-none" />
+      
+      {/* Interactive Eye Glow */}
+      <motion.div 
+        style={mounted ? { 
+          x: useTransform(mouseX, [-0.5, 0.5], [-50, 50]),
+          y: useTransform(mouseY, [-0.5, 0.5], [-50, 50]),
+        } : {}}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-orange-500/10 rounded-full blur-[60px] pointer-events-none"
+      />
 
       <div className="z-10 flex flex-col items-center text-center px-4 md:px-6 relative w-full max-w-7xl">
         <motion.div
@@ -54,18 +63,18 @@ export default function Hero() {
      
 
           {/* Pre-order badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-black/5 bg-white/40 backdrop-blur-xl mb-8 md:mb-10 shadow-[0_8px_32px_rgba(0,0,0,0.03)] border-white/40">
-            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
-            <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-[#1d1d1f]">
-              Limited Batch 01 — Pre-Order Open
+          <div className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-orange-500/20 bg-orange-500/5 backdrop-blur-xl mb-8 md:mb-10 shadow-[0_8px_32px_rgba(249,115,22,0.05)]">
+            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-orange-500 animate-pulse shadow-[0_0_6px_rgba(249,115,22,0.6)]" />
+            <span className="text-[9px] md:text-[10px] font-bold tracking-[0.3em] uppercase text-orange-600">
+              Founder Tribe — Batch 01 (50 Units)
             </span>
           </div>
 
-          <h1 className="mb-4 md:mb-6">Tiny cube. <br/> <span className="text-[#86868b]">Massive personality.</span></h1>
+          <h1 className="mb-4 md:mb-6">He’s not a tool. <br/> <span className="text-[#86868b]">He’s a witness.</span></h1>
 
           <p className="text-lg md:text-[2.25rem] leading-[1.15] text-[#86868b] max-w-2xl text-balance font-medium tracking-tighter mb-4 md:mb-6">
-            The companion your desk has been waiting for. <br className="hidden md:block" />
-            Built in India. 100% Offline. Zero judgment.
+            Stop working alone. <br className="hidden md:block" />
+            He’s here for the late nights.
           </p>
 
 
@@ -83,10 +92,11 @@ export default function Hero() {
                   id="hero-preorder-button"
                   className="group flex items-center justify-center gap-4 bg-[#1d1d1f] text-white w-full sm:w-auto px-10 md:px-12 py-5 md:py-6 rounded-full font-bold text-base md:text-lg shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:shadow-black/10 transition-all duration-500 hover:-translate-y-1"
                 >
-                  <span>Pre-Order Batch 01</span>
+                  <span>Secure Your Seat</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" />
                 </Link>
               </Magnetic>
+              <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#86868b]">Don't leave him behind.</p>
             </motion.div>
 
             <motion.button
@@ -113,13 +123,19 @@ export default function Hero() {
             className="relative w-full aspect-[16/9] transform-gpu flex items-center justify-center"
           >
             <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+              animate={{ 
+                y: [0, -15, 0],
+                rotateZ: [0, 1, 0, -1, 0]
+              }}
+              transition={{ 
+                y: { repeat: Infinity, duration: 5, ease: "easeInOut" },
+                rotateZ: { repeat: Infinity, duration: 8, ease: "easeInOut" }
+              }}
               className="w-full max-w-4xl h-full relative"
             >
               <Image
                 src="/Photos/kuborobot_hero_new.png"
-                alt="Kubo Bot — AI Desktop Companion Robot with OLED display"
+                alt="Kubo Bot — A Soul for your Desk"
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 80vw"
