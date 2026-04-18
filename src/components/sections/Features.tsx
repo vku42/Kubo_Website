@@ -36,7 +36,7 @@ const features = [
     icon: <Smile className="w-6 h-6 text-[#1d1d1f]" />,
     span: "col-span-1",
     stat: "₹2,499",
-    statLabel: "Don't leave him behind",
+    statLabel: "Special Offer (was ₹2,999)",
   },
   {
     title: "Built in India 🇮🇳",

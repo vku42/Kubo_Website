@@ -234,9 +234,16 @@ export default function BuyPage() {
                 </div>
 
                 <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4 text-[#1d1d1f] text-center md:text-left">Kubo Bot</h1>
-                <p className="text-2xl md:text-3xl font-bold text-[#1d1d1f] tracking-tight mb-8 text-center md:text-left">
-                  {price} <span className="text-sm font-medium text-[#86868b] ml-1">incl. all taxes</span>
-                </p>
+                <div className="flex flex-col md:flex-row items-center md:items-baseline gap-3 mb-8">
+                  <span className="text-3xl md:text-4xl font-bold text-[#1d1d1f] tracking-tight">{price}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg text-[#86868b] line-through decoration-[#1d1d1f]/20">₹2,999</span>
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-orange-50 text-orange-600 uppercase tracking-wider border border-orange-100">
+                      Early Adopter Offer
+                    </span>
+                  </div>
+                </div>
+                <p className="text-xs font-medium text-[#86868b] mb-8 -mt-6 text-center md:text-left ml-1">incl. all taxes</p>
 
                 <p className="text-xl text-balance mb-8 font-medium text-[#86868b] leading-relaxed">
                   Only 50 Founders will own the First Batch. Will you be the one to wake him up? Your premium desktop companion is waiting.
