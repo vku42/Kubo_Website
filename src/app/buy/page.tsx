@@ -19,7 +19,7 @@ const faqs = [
 
 const MERCHANT_UPI = "s3969685224338903@slc";
 const MERCHANT_NAME = "Vehon Infotech";
-const PRODUCT_AMOUNT = "2999";
+const PRODUCT_AMOUNT = "2499";
 
 export default function BuyPage() {
   const router = useRouter();

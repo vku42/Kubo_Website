@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s | Kubo Bot",
   },
   description:
-    "Meet Kubo — the world's most emotionally intelligent desktop companion. 100% offline AI, 1.3\" OLED face, 24hr standby. Pre-order Batch 01 at ₹2,999. Ships Q3 2026.",
+    "Meet Kubo — the world's most emotionally intelligent desktop companion. 100% offline AI, 1.3\" OLED face, 24hr standby. Pre-order Batch 01 at ₹2,499. Ships Q3 2026.",
   keywords: [
     "Kubo Bot",
     "AI Desktop Companion",

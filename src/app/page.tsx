@@ -52,7 +52,7 @@ export default function Home() {
       "@type": "Offer",
       url: `${BASE_URL}/buy`,
       priceCurrency: "INR",
-      price: "2999",
+      price: "2499",
       priceValidUntil: "2026-09-30",
       availability: "https://schema.org/PreOrder",
       itemCondition: "https://schema.org/NewCondition",

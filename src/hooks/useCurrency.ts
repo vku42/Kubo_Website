@@ -10,7 +10,7 @@ export default function useCurrency() {
       .then((res) => res.json())
       .then((data) => {
         if (data.country_code === "IN") {
-          setPrice("₹2,999");
+          setPrice("₹2,499");
           setShipping("Free Delivery in India");
         } else if (data.continent_code === "EU") {
           setPrice("€29.99");

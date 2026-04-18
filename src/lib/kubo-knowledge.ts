@@ -31,9 +31,11 @@ Weight: 150g. USB-C charging.
 - Finishes: Matte Slate / Pearl White
 
 === PRICING & AVAILABILITY ===
-- Price: ₹2,999 (INR) inclusive of all taxes
-- Current Batch: Batch 01 (Limited to ~50 units)
-- Status: Pre-Order Open
+- Price: ₹2,499 (Special Early Adopter Discount)
+- Regular Price: ₹3,999
+- Pre-order Batch: Batch 01 (Founders Edition)
+- Launch Date: Q3 2026
+- Payment: UPI / Instamojo (Full payment required for reservation)
 - Expected Shipping: Late Q3 2026
 - Shipping: Free within India. International shipping not yet available.
 - Payment: UPI (GPay, PhonePe, Paytm, etc.)

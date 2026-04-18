@@ -35,7 +35,7 @@ const features = [
     description: "He doesn't care about your productivity. He cares about you. A zero-judgment companion.",
     icon: <Smile className="w-6 h-6 text-[#1d1d1f]" />,
     span: "col-span-1",
-    stat: "₹2,999",
+    stat: "₹2,499",
     statLabel: "Don't leave him behind",
   },
   {

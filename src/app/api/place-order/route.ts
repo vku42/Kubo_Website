@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
         customerEmail: email,
         customerPhone: phone,
         shippingAddress: address,
-        amount: 2999,
+        amount: 2499,
         paymentMethod: paymentMethod,
         customerUpiId: customerUpiId
     });
@@ -120,7 +120,7 @@ export async function POST(req: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        amount: "2999",
+        amount: "2499",
         purpose: "Kubo Bot Pre-Order",
         buyer_name: name,
         email: email,
