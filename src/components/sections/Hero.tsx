@@ -6,17 +6,6 @@ import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import { ArrowRight, Star, Play, Trophy } from "lucide-react";
 import Magnetic from "@/components/ui/Magnetic";
-import StatsBar from "@/components/ui/StatsBar";
-
-const TICKER_ITEMS = [
-  "47 Pre-orders placed",
-  "⭐ 4.9 Early Rating",
-  "🇮🇳 Made in India",
-  "100% Offline AI",
-  "Batch 01 — Limited to 50 units",
-  "Ships Q3 2026",
-  "₹2,999 — No subscription",
-];
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -45,8 +34,6 @@ export default function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
-  // Duplicate items for seamless loop
-  const tickerContent = [...TICKER_ITEMS, ...TICKER_ITEMS];
 
   return (
     <section
@@ -81,7 +68,6 @@ export default function Hero() {
             Built in India. 100% Offline. Zero judgment.
           </p>
 
-          <StatsBar />
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mt-6">
@@ -132,42 +118,17 @@ export default function Hero() {
               className="w-full max-w-4xl h-full relative"
             >
               <Image
-                src="/Photos/heroimg.png"
+                src="/Photos/kuborobot_hero_new.png"
                 alt="Kubo Bot — AI Desktop Companion Robot with OLED display"
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 80vw"
-                className="object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.1)] scale-110 md:scale-100"
+                className="object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.3)] scale-110 md:scale-100"
               />
             </motion.div>
           </motion.div>
         </div>
       </div>
-
-      {/* Scrolling Ticker */}
-      <motion.div
-        style={mounted ? { opacity: heroOpacity } : { opacity: 1 }}
-        className="w-full mt-10 overflow-hidden border-t border-b border-black/5 py-4 relative"
-      >
-        <div className="flex gap-12 w-max animate-[ticker_25s_linear_infinite]">
-          {tickerContent.map((item, i) => (
-            <span
-              key={i}
-              className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#86868b] whitespace-nowrap flex-shrink-0"
-            >
-              {item}
-              <span className="ml-12 text-black/10">◆</span>
-            </span>
-          ))}
-        </div>
-      </motion.div>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes ticker {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}} />
     </section>
   );
 }

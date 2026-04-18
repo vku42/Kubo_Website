@@ -17,7 +17,7 @@ const faqs = [
   { q: "Do you ship internationally?", a: "Currently, we only ship within India. We are working hard to establish international logistics and will announce global availability soon." }
 ];
 
-const MERCHANT_UPI = "thekubo@pthdfc";
+const MERCHANT_UPI = "s3969685224338903@slc";
 const MERCHANT_NAME = "Kubo Bot";
 const PRODUCT_AMOUNT = "2999";
 

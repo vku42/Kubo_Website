@@ -60,19 +60,6 @@ export default function FocusShowcase() {
           ))}
         </div>
 
-        {/* Live Demo Trigger */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-24 flex flex-col items-center gap-6"
-        >
-          <div className="p-4 bg-white/5 rounded-full border border-white/10 flex items-center gap-3">
-             <div className="w-2 h-2 bg-amberMain rounded-full animate-pulse shadow-[0_0_8px_#F59E0B]" />
-             <span className="text-[10px] font-bold text-white/50 uppercase tracking-[0.2em]">Live Focus Session Active</span>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
