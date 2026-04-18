@@ -94,7 +94,7 @@ body::before {
 /* Swiss Typography Support */
 @layer base {
   h1, .h1 {
-    @apply text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter leading-[0.85];
+    @apply text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter leading-[0.95] md:leading-[0.85];
   }
   h2, .h2 {
     @apply text-3xl sm:text-5xl md:text-6xl lg:text-[6.5rem] font-bold tracking-tighter leading-[0.95];
