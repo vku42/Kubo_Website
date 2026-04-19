@@ -25,17 +25,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   applicationName: "Kubo Bot",
   title: {
-    default: "Kubo Bot | Premium AI Desktop Companion Robot — Made in India",
+    default: "Kubo Bot | A Soul for Your Desk",
     template: "%s | Kubo Bot",
   },
   description:
-    "Meet Kubo — the world's most emotionally intelligent desktop companion. 100% offline AI, 1.3\" OLED face, 24hr standby. Pre-order Batch 01 at ₹2,499. Ships Q3 2026.",
+    "Meet Kubo — the desktop witness for your late nights. 100% offline emotional AI, 1.3\" OLED face, 24hr standby. Pre-order Batch 01 at ₹2,499. Made in India.",
   keywords: [
     "Kubo Bot",
-    "AI Desktop Companion",
+    "Emotional Desktop Robot",
     "AI Robot India",
     "Productivity Robot",
-    "Desk Companion Robot",
+    "Desk Companion",
     "ESP32 Robot",
     "Emotional AI Robot",
     "Focus Timer Robot",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     "Kubo Robotics",
     "Vehon Infotech",
     "Pre-order Robot India",
-    "AI Companion India 2026",
+    "Emotional Robot 2026",
     "desktop robot India",
     "AI robot buy India",
     "desktop companion robot Surat",
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
     canonical: BASE_URL,
   },
   openGraph: {
-    title: "Kubo Bot | Premium AI Desktop Companion Robot",
+    title: "Kubo Bot | A Soul for Your Desk",
     description:
-      "Your desk buddy. Keeps you productive. Never judges. Always there. 100% offline AI — no subscription, no cloud, no compromise.",
+      "Your desktop witness. Keeps you productive. Never judges. Always there. 100% offline emotional AI — no subscription, no cloud, no compromise.",
     url: BASE_URL,
     siteName: "Kubo Bot",
     images: [
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Kubo Bot — Premium AI Desktop Companion Robot. Pre-order now at ₹2,999.",
+        alt: "Kubo Bot — A Soul for Your Desk. Pre-order now at ₹2,499.",
         type: "image/png",
       },
     ],
@@ -80,9 +80,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kubo Bot | AI Desktop Companion Robot — Made in India",
+    title: "Kubo Bot | A Soul for Your Desk",
     description:
-      "The companion your desk has been waiting for. 100% offline AI, Pomodoro focus timer, 24hr battery. Pre-order Batch 01 — only 50 units.",
+      "The witness your desk has been waiting for. 100% offline emotional AI, Pomodoro focus timer, 24hr battery. Pre-order Batch 01 — only 50 units.",
     images: [{ url: "/og-image.png", alt: "Kubo Bot Robot" }],
     creator: "@thekubobot",
     site: "@thekubobot",

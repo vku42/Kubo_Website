@@ -18,14 +18,14 @@ export default function Home() {
     "@type": "Product",
     "@id": `${BASE_URL}/#product`,
     name: "Kubo Bot",
-    alternateName: "Kubo AI Desktop Companion",
+    alternateName: "Kubo Emotional Desktop Robot",
     image: [
       `${BASE_URL}/og-image.png`,
       `${BASE_URL}/Photos/img1.jpg`,
       `${BASE_URL}/Photos/img2.jpg`,
     ],
     description:
-      "Kubo Bot is a soul for your desk. A premium companion with a 1.3\" OLED display, built with 100% offline emotional AI that cares about you. Made in India.",
+      "Kubo Bot is a soul for your desk. A premium emotional robot with a 1.3\" OLED display, built with 100% offline emotional AI that cares about you. Made in India.",
     sku: "KUBO-BATCH-01",
     mpn: "KBO-B01",
     brand: {
@@ -103,7 +103,7 @@ export default function Home() {
     },
     image: `${BASE_URL}/og-image.png`,
     description:
-      "Kubo Robotics is an Indian consumer robotics company building premium AI companion robots for home and desk use. Our flagship product Kubo Bot features 100% offline emotional AI.",
+      "Kubo Robotics is an Indian consumer robotics company building premium emotional desktop robots for home and desk use. Our flagship product Kubo Bot features 100% offline emotional AI.",
     address: {
       "@type": "PostalAddress",
       addressCountry: "IN",
@@ -128,7 +128,7 @@ export default function Home() {
     "@id": `${BASE_URL}/#website`,
     url: BASE_URL,
     name: "Kubo Bot",
-    description: "Premium AI Desktop Companion Robot — Made in India",
+    description: "Emotional Desktop Robot — Made in India",
     publisher: { "@id": `${BASE_URL}/#organization` },
     potentialAction: {
       "@type": "SearchAction",
