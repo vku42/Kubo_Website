@@ -92,6 +92,11 @@ export default function SupportPage() {
                 <h3 className="font-bold text-[#1d1d1f] mb-1">Community</h3>
                 <p className="text-sm text-[#86868b] font-medium">Join our Discord</p>
               </div>
+              <div className="p-6 rounded-3xl bg-white border border-[#d2d2d7]/30 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
+                <Info className="w-6 h-6 text-black/20 mb-4" />
+                <h3 className="font-bold text-[#1d1d1f] mb-1">Legal Entity</h3>
+                <p className="text-sm text-[#86868b] font-medium">Operated by Vehon Infotech</p>
+              </div>
             </div>
           </motion.div>
 

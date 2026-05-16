@@ -24,7 +24,7 @@ export default function TermsPage() {
               <h2 className="text-2xl font-bold tracking-tight text-[#1d1d1f]">1. Agreement to Terms</h2>
             </div>
             <p className="text-[#86868b] leading-relaxed font-medium text-lg">
-              By purchasing Kubo Bot, you agree to these terms. Kubo is a community-driven project and a unique desktop companion. By ordering, you support Batch 01 production.
+              By purchasing Kubo Bot, you agree to these terms. Kubo is a community-driven project and a unique desktop companion. By ordering, you support Batch 01 production. This website and the Kubo Bot product are operated by <strong>Vehon Infotech</strong>, the legal entity responsible for all transactions and services.
             </p>
           </section>
 
